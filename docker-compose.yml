@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web-gateway:
+    container_name: api-gateway
+    image: people-dev:1.1.4
+    build: .
+    command: yarn dev
+    ports: 
+     - 8000:3000
+     - 8080:80
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - CLOUDINARY_NAME=${CLOUDINARY_NAME}
+      - CLOUDINARY_KEY=${CLOUDINARY_KEY}
+      - CLOUDINARY_SECRET=${CLOUDINARY_SECRET}
+      - CLOUDINARY_ENVIRONMENT=${CLOUDINARY_ENVIRONMENT}
+      - CLOUDINARY_URL=${CLOUDINARY_URL}
+      - FX_ACCESS_KEY=${FX_ACCESS_KEY}
+      - MAILJET_KEY=${MAILJET_KEY}
+      - MAILJET_SECRET=${MAILJET_SECRET}
+    restart: unless-stopped
+  

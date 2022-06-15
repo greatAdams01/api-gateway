@@ -13,7 +13,7 @@ import { EnvModule } from './env/env.module';
 @Module({
 
   imports: [
-    MongooseModule.forRoot(config.MONGO_URI, {
+    MongooseModule.forRoot('mongodb+srv://peak-express:SWk9g6nsPeaSh2gO@peak-express.gg0c3.mongodb.net/expressDatabase?', {
       // connectionFactory: (connection: Connection) => {
       //   connection.useDb('test');
 

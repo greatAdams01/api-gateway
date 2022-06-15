@@ -12,7 +12,6 @@ const app_controller_1 = require("./app.controller");
 const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const app_service_1 = require("./app.service");
-const config_1 = require("./utils/config");
 const path_1 = require("path");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_module_1 = require("./auth/auth.module");
@@ -23,7 +22,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot(config_1.default.MONGO_URI, {}),
+            mongoose_1.MongooseModule.forRoot('mongodb+srv://peak-express:SWk9g6nsPeaSh2gO@peak-express.gg0c3.mongodb.net/expressDatabase?', {}),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 typePaths: ['./**/*.graphql'],
