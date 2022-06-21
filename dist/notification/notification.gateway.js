@@ -17,7 +17,7 @@ exports.NotificationGateway = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const websockets_1 = require("@nestjs/websockets");
 const mongoose_2 = require("mongoose");
-const notification_schema_1 = require("src/notification/notification.schema");
+const notification_schema_1 = require("./notification.schema");
 const ws_1 = require("ws");
 let NotificationGateway = class NotificationGateway {
     constructor(noticeModel) {

@@ -1,6 +1,6 @@
 import { Connection, Model, ObjectId } from 'mongoose';
 import { IGeo } from 'src/interfaces';
-import { NoticeDocument } from 'src/notification/notification.schema';
+import { Notice, NoticeDocument } from 'src/notification/notification.schema';
 import { UserDocument } from 'src/user/entity/user.schema';
 import { CreateCampaignDTO, UpdateCampaignDTO } from '../dto/campaign.dto';
 import { CampaignGateway } from '../gateway/campaign.gateway';
@@ -32,7 +32,11 @@ export declare class CampaignService {
     myCampaigns(user_id: string): Promise<Campaign[]>;
     approveCampaign(campaign_id: string): Promise<CampaignDocument>;
     viewedBy(id: string, userId: string): Promise<string>;
-    findAllNotice(model?: string): Promise<Omit<any, never>[]>;
+    findAllNotice(model?: string): Promise<Omit<Notice & import("mongoose").Document<any, any, any> & {
+        _doc: any;
+    } & {
+        _id: any;
+    }, never>[]>;
     feature(campaign_id: ObjectId): Promise<CampaignDocument>;
     session(_id: string): Promise<ISessionResponseData>;
 }

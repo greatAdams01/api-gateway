@@ -13,7 +13,7 @@ const notification_schema_1 = require("./notification.schema");
 const notification_service_1 = require("./notification.service");
 const notification_controller_1 = require("./notification.controller");
 const notification_gateway_1 = require("./notification.gateway");
-const report_schema_1 = require("../src/applicant/schema/report.schema");
+const report_schema_1 = require("../applicant/schema/report.schema");
 let NotificationModule = class NotificationModule {
 };
 NotificationModule = __decorate([

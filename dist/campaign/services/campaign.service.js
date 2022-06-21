@@ -16,14 +16,13 @@ exports.CampaignService = exports.ISessionResponseData = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const notification_schema_1 = require("src/notification/notification.schema");
-const user_schema_1 = require("../../src/user/entity/user.schema");
-const cloudinary_1 = require("../../src/utils/cloudinary");
+const notification_schema_1 = require("../../notification/notification.schema");
+const user_schema_1 = require("../../user/entity/user.schema");
+const cloudinary_1 = require("../../utils/cloudinary");
 const campaign_interface_1 = require("../dto/campaign.interface");
 const campaign_gateway_1 = require("../gateway/campaign.gateway");
 const campaign_schema_1 = require("../schema/campaign.schema");
 const endorsement_schema_1 = require("../schema/endorsement.schema");
-const sendMaijet_1 = require("../../utils/sendMaijet");
 class ISessionResponseData {
 }
 exports.ISessionResponseData = ISessionResponseData;
@@ -107,7 +106,6 @@ let CampaignService = class CampaignService {
         try {
             const campaign = await this.campaignModel.findOneAndUpdate({ _id: data.id }, data, { new: true });
             const author = await this.userModel.findById(campaign.author);
-            await (0, sendMaijet_1.updateCampMail)(campaign.title, author.email, author.name);
             return campaign;
         }
         catch (error) {
@@ -226,7 +224,6 @@ let CampaignService = class CampaignService {
             const author = await this.userModel.findById(campaign.author);
             campaign.views.push(userId);
             campaign.save();
-            await (0, sendMaijet_1.viewCampMail)(campaign.title, user === null || user === void 0 ? void 0 : user.name, author.email, author.name);
             return 'Viewer Added';
         }
         catch (error) {

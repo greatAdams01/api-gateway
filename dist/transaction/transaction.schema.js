@@ -13,7 +13,7 @@ exports.TransactionSchema = exports.Transaction = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const user_schema_1 = require("../src/user/entity/user.schema");
+const user_schema_1 = require("../user/entity/user.schema");
 const transaction_interface_1 = require("./transaction.interface");
 let Transaction = class Transaction {
 };

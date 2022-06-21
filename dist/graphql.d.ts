@@ -68,6 +68,23 @@ export interface ReportInput {
     status?: Nullable<boolean>;
     applicant_id?: Nullable<string>;
 }
+export interface CampaignInput {
+    id?: Nullable<string>;
+    title?: Nullable<string>;
+    video?: Nullable<string>;
+    image?: Nullable<string>;
+    aim?: Nullable<string>;
+    target?: Nullable<string>;
+    body?: Nullable<string>;
+    slug?: Nullable<string>;
+    status?: Nullable<string>;
+    author?: Nullable<string>;
+    addedFrom?: Nullable<string>;
+}
+export interface EndorsementInput {
+    campaign?: Nullable<string>;
+    body?: Nullable<string>;
+}
 export interface EnvInput {
     id?: Nullable<string>;
     name?: Nullable<string>;
@@ -120,6 +137,13 @@ export interface IQuery {
     getSuppervisorReport(): Nullable<Nullable<Report>[]> | Promise<Nullable<Nullable<Report>[]>>;
     getReportNoifcations(): Nullable<Nullable<ReportPayload>[]> | Promise<Nullable<Nullable<ReportPayload>[]>>;
     getApplicantsReport(applicant_id?: Nullable<string>): Nullable<Nullable<Report>[]> | Promise<Nullable<Nullable<Report>[]>>;
+    getCampaigns(limit?: Nullable<number>): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
+    getCampaign(slug?: Nullable<string>): Nullable<Campaign> | Promise<Nullable<Campaign>>;
+    myCampaign(): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
+    getCampaignNotice(): Nullable<Nullable<CampaignNotice>[]> | Promise<Nullable<Nullable<CampaignNotice>[]>>;
+    getActiveCampaigns(): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
+    getEndorsementsByCampaign(campaign_id?: Nullable<string>): Nullable<Nullable<Endorsement>[]> | Promise<Nullable<Nullable<Endorsement>[]>>;
+    getEndorsements(): Nullable<Nullable<Endorsement>[]> | Promise<Nullable<Nullable<Endorsement>[]>>;
     getEnvs(): Nullable<Nullable<Env>[]> | Promise<Nullable<Nullable<Env>[]>>;
     getEnv(id?: Nullable<string>): Nullable<Env> | Promise<Nullable<Env>>;
     getUsers(search?: Nullable<string>, limit?: Nullable<number>, skip?: Nullable<number>, accountType?: Nullable<string>, role?: Nullable<string>): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
@@ -160,6 +184,12 @@ export interface IMutation {
     resolveReport(_id?: Nullable<string>): Nullable<Report> | Promise<Nullable<Report>>;
     addRepComment(report: string, content?: Nullable<string>): Nullable<RepComment> | Promise<Nullable<RepComment>>;
     deleteRepComment(_id?: Nullable<string>): Nullable<RepComment> | Promise<Nullable<RepComment>>;
+    addCampaign(input?: Nullable<CampaignInput>): Nullable<Campaign> | Promise<Nullable<Campaign>>;
+    deleteCampaign(id?: Nullable<string>): Nullable<Campaign> | Promise<Nullable<Campaign>>;
+    updateCampaign(input?: Nullable<CampaignInput>): Nullable<Campaign> | Promise<Nullable<Campaign>>;
+    deleteAllCampNotice(): Nullable<boolean> | Promise<Nullable<boolean>>;
+    createEndorsement(input?: Nullable<EndorsementInput>): Nullable<Endorsement> | Promise<Nullable<Endorsement>>;
+    deleteEndorsement(id?: Nullable<string>): Nullable<Endorsement> | Promise<Nullable<Endorsement>>;
     createEnv(input?: Nullable<EnvInput>): Nullable<Env> | Promise<Nullable<Env>>;
     updateEnv(input?: Nullable<EnvInput>): Nullable<Env> | Promise<Nullable<Env>>;
     deleteEnv(id?: Nullable<string>): Nullable<Env> | Promise<Nullable<Env>>;
@@ -273,6 +303,49 @@ export interface ApplicantReport {
 }
 export interface ISubscription {
     reportSubscription(): Nullable<Nullable<ReportPayload>[]> | Promise<Nullable<Nullable<ReportPayload>[]>>;
+}
+export interface Campaign {
+    id?: Nullable<string>;
+    title?: Nullable<string>;
+    image?: Nullable<string>;
+    excerpt?: Nullable<string>;
+    aim?: Nullable<string>;
+    target?: Nullable<string>;
+    body?: Nullable<string>;
+    slug?: Nullable<string>;
+    status?: Nullable<string>;
+    author?: Nullable<User>;
+    createdAt?: Nullable<Date>;
+    updatedAt?: Nullable<Date>;
+    addedFrom?: Nullable<string>;
+    numberOfPaidViewsCount?: Nullable<number>;
+    numberOfPaidEndorsementCount?: Nullable<number>;
+    endorsements?: Nullable<Nullable<Endorsement>[]>;
+    likes?: Nullable<Nullable<string>[]>;
+    promoted?: Nullable<boolean>;
+    views?: Nullable<Nullable<string>[]>;
+    category?: Nullable<string>;
+    region?: Nullable<string>;
+}
+export interface View {
+    user?: Nullable<string>;
+}
+export interface CampaignNotice {
+    id?: Nullable<string>;
+    action?: Nullable<string>;
+    author?: Nullable<User>;
+    data?: Nullable<Campaign>;
+    createdAt?: Nullable<Date>;
+    read?: Nullable<boolean>;
+}
+export interface Endorsement {
+    id?: Nullable<string>;
+    author?: Nullable<User>;
+    campaign?: Nullable<Campaign>;
+    body?: Nullable<string>;
+    likes?: Nullable<Nullable<string>[]>;
+    createdAt?: Nullable<Date>;
+    updatedAt?: Nullable<Date>;
 }
 export interface Env {
     id?: Nullable<string>;

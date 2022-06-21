@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -9,6 +10,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { EnvModule } from './env/env.module';
+import { CampaignModule } from './campaign/campaign.module';
+import { TransactionModule } from './transaction/transaction.module';
+import { ApplicantModule } from './applicant/applicant.module';
 
 @Module({
 
@@ -36,8 +40,14 @@ import { EnvModule } from './env/env.module';
       },
     }),
 
+    ConfigModule.forRoot({ isGlobal: true }),
+    CacheModule.register({ ttl: 500 }),
+
     AuthModule,
     UserModule,
+    ApplicantModule,
+    CampaignModule,
+    TransactionModule,
     EnvModule
   ],
   controllers: [AppController],

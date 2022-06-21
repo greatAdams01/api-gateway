@@ -1,6 +1,6 @@
 import { OnGatewayConnection, OnGatewayInit } from '@nestjs/websockets';
 import { Model } from 'mongoose';
-import { NoticeDocument } from 'src/notification/notification.schema';
+import { Notice, NoticeDocument } from 'src/notification/notification.schema';
 import { UserDocument } from 'src/user/entity/user.schema';
 import { Server } from 'ws';
 import { CampaignDocument } from '../schema/campaign.schema';
@@ -14,11 +14,19 @@ export declare class CampaignGateway implements OnGatewayConnection, OnGatewayIn
     createdCampaign(data: {
         campaignTitle: string;
         user: UserDocument;
-    }): Promise<any>;
+    }): Promise<Notice & import("mongoose").Document<any, any, any> & {
+        _doc: any;
+    } & {
+        _id: any;
+    }>;
     endorsedCampaign(data: {
         campaignTitle: string;
         user: UserDocument;
-    }): Promise<any>;
+    }): Promise<Notice & import("mongoose").Document<any, any, any> & {
+        _doc: any;
+    } & {
+        _id: any;
+    }>;
     getCampaignNotice(): Promise<any>;
     getAllNotice(model?: string): Promise<any>;
 }

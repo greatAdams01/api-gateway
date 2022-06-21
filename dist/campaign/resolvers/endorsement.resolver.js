@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EndorsementResolver = void 0;
 const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
-const graphql_guard_1 = require("../../src/auth/guards/graphql.guard");
+const graphql_guard_1 = require("../../auth/guards/graphql.guard");
 const endorsement_dto_1 = require("../dto/endorsement.dto");
 const endorsement_service_1 = require("../services/endorsement.service");
 let EndorsementResolver = class EndorsementResolver {

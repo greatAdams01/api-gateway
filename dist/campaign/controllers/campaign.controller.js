@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampaignController = void 0;
 const common_1 = require("@nestjs/common");
-const local_guard_1 = require("../../src/auth/guards/local.guard");
+const local_guard_1 = require("../../auth/guards/local.guard");
 const campaign_dto_1 = require("../dto/campaign.dto");
 const campaign_gateway_1 = require("../gateway/campaign.gateway");
 const campaign_service_1 = require("../services/campaign.service");

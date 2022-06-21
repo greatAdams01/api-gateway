@@ -19,8 +19,8 @@ const endorsement_schema_1 = require("./schema/endorsement.schema");
 const campaign_service_1 = require("./services/campaign.service");
 const endorsement_service_1 = require("./services/endorsement.service");
 const mongooseSlug = require("mongoose-slug-generator");
-const user_schema_1 = require("../src/user/entity/user.schema");
-const notification_schema_1 = require("src/notification/notification.schema");
+const user_schema_1 = require("../user/entity/user.schema");
+const notification_schema_1 = require("../notification/notification.schema");
 let CampaignModule = class CampaignModule {
 };
 CampaignModule = __decorate([
