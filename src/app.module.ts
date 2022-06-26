@@ -1,5 +1,5 @@
-import { CacheModule, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { CacheModule, Inject, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -13,11 +13,12 @@ import { EnvModule } from './env/env.module';
 import { CampaignModule } from './campaign/campaign.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { ApplicantModule } from './applicant/applicant.module';
+import { ClientsModule, Transport } from  "@nestjs/microservices"
 
 @Module({
 
   imports: [
-    MongooseModule.forRoot('mongodb+srv://peak-express:SWk9g6nsPeaSh2gO@peak-express.gg0c3.mongodb.net/expressDatabase?', {
+    MongooseModule.forRoot(config.MONGO_URI, {
       // connectionFactory: (connection: Connection) => {
       //   connection.useDb('test');
 
@@ -25,6 +26,20 @@ import { ApplicantModule } from './applicant/applicant.module';
       //   return connection;
       // },
     }),
+
+    ClientsModule.register([
+      {
+        name: 'MAIL_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [config.RMQ_URL],
+          queue: 'mail_queue',
+          queueOptions: {
+            durable: false
+          },
+        },
+      },
+    ]),
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

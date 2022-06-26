@@ -11,7 +11,26 @@ const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
+    const devOrigins = [
+        'http://localhost',
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'http://localhost:3002',
+        'localho.st:3000',
+    ];
+    const prodOrigins = [
+        'https://edfhr.org',
+        'http://edfhr.org',
+        'https://team.edfhr.org',
+        'https://portal.edfhr.org',
+        'https://portal-dev.edfhr.org',
+        /\.edfhr\.org$/,
+    ];
+    const origin = devOrigins;
+    app.enableCors({
+        origin,
+        credentials: true,
+    });
     app.use(cookieParser());
     app.use(cookieSession({
         secret: config_1.default.SECRET,

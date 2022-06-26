@@ -1,5 +1,6 @@
 export declare const CLIENT_URL: string;
 declare const config: {
+    RMQ_URL: string;
     MONGO_URI: string;
     V2_MONGO_URI: string;
     SENDGRID_API_KEY: string;

@@ -19,6 +19,7 @@ import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtStrategy, SessionSerializer } from './strategies/jwt.strategy'; 
+import { ClientsModule, Transport } from  "@nestjs/microservices"
 
 @Module({
   providers: [
@@ -39,6 +40,19 @@ import { JwtStrategy, SessionSerializer } from './strategies/jwt.strategy';
       // signOptions: { expiresIn: '1d' },
     }),
     CacheModule.register(),
+    ClientsModule.register([
+      {
+        name: 'MAIL_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [config.RMQ_URL],
+          queue: 'mail_queue',
+          queueOptions: {
+            durable: false
+          },
+        },
+      },
+    ])
   ],
 
   controllers: [AuthController],

@@ -1,11 +1,15 @@
+import { ClientProxy } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 import { ISession, ReqWithUser } from 'src/typings';
 import { ChangePasswordDTO, RegisterWithEmailDTO } from 'src/user/dto/user.dto';
 import { AuthService } from './auth.service';
 export declare class AuthController {
+    private client;
     private readonly authService;
-    constructor(authService: AuthService);
+    constructor(client: ClientProxy, authService: AuthService);
     home(): string;
     me(req: ReqWithUser): Promise<import("../user/entity/user.schema").UserDocument>;
+    accumulate(): Observable<number>;
     login(data: {
         email?: string;
         phone?: string;

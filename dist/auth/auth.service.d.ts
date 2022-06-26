@@ -1,4 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
+import { ClientProxy } from '@nestjs/microservices';
 import { Model } from 'mongoose';
 import { ReqWithUser } from 'src/typings';
 import { ChangePasswordDTO, RegisterWithEmailDTO } from 'src/user/dto/user.dto';
@@ -6,8 +7,9 @@ import { UserDocument } from 'src/user/entity/user.schema';
 export declare class AuthService {
     private readonly userModel;
     private readonly req;
+    private client;
     private jwtService;
-    constructor(userModel: Model<UserDocument>, req: ReqWithUser, jwtService: JwtService);
+    constructor(userModel: Model<UserDocument>, req: ReqWithUser, client: ClientProxy, jwtService: JwtService);
     registerWithEmail(data: Partial<RegisterWithEmailDTO>): Promise<{
         user: Partial<UserDocument>;
         token: string;

@@ -14,7 +14,32 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors();
+  const devOrigins = [
+    'http://localhost',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:3002',
+    'localho.st:3000',
+  ];
+  const prodOrigins = [
+    'https://edfhr.org',
+    'http://edfhr.org',
+    'https://team.edfhr.org',
+    'https://portal.edfhr.org',
+    'https://portal-dev.edfhr.org',
+  
+    /\.edfhr\.org$/,
+  ];
+
+  const origin = devOrigins
+
+  app.enableCors(
+    {
+      origin,
+  
+      credentials: true,
+    }
+  );
 
   // app.useWebSocketAdapter(new RedisIoAdapter(app));
   app.use(cookieParser());

@@ -13,6 +13,7 @@ const app_controller_1 = require("./app.controller");
 const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const app_service_1 = require("./app.service");
+const config_2 = require("./utils/config");
 const path_1 = require("path");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_module_1 = require("./auth/auth.module");
@@ -21,12 +22,26 @@ const env_module_1 = require("./env/env.module");
 const campaign_module_1 = require("./campaign/campaign.module");
 const transaction_module_1 = require("./transaction/transaction.module");
 const applicant_module_1 = require("./applicant/applicant.module");
+const microservices_1 = require("@nestjs/microservices");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://peak-express:SWk9g6nsPeaSh2gO@peak-express.gg0c3.mongodb.net/expressDatabase?', {}),
+            mongoose_1.MongooseModule.forRoot(config_2.default.MONGO_URI, {}),
+            microservices_1.ClientsModule.register([
+                {
+                    name: 'MAIL_SERVICE',
+                    transport: microservices_1.Transport.RMQ,
+                    options: {
+                        urls: [config_2.default.RMQ_URL],
+                        queue: 'mail_queue',
+                        queueOptions: {
+                            durable: false
+                        },
+                    },
+                },
+            ]),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 typePaths: ['./**/*.graphql'],

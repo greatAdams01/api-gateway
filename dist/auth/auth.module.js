@@ -20,6 +20,7 @@ const auth_controller_1 = require("./auth.controller");
 const auth_resolver_1 = require("./auth.resolver");
 const auth_service_1 = require("./auth.service");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
+const microservices_1 = require("@nestjs/microservices");
 let AuthModule = class AuthModule {
     configure(consumer) {
         consumer.apply(location_middleware_1.LocationMiddleware).forRoutes(auth_controller_1.AuthController);
@@ -44,6 +45,19 @@ AuthModule = __decorate([
                 secret: config_1.default.SECRET || 'khdkdkfkfkfk',
             }),
             common_1.CacheModule.register(),
+            microservices_1.ClientsModule.register([
+                {
+                    name: 'MAIL_SERVICE',
+                    transport: microservices_1.Transport.RMQ,
+                    options: {
+                        urls: [config_1.default.RMQ_URL],
+                        queue: 'mail_queue',
+                        queueOptions: {
+                            durable: false
+                        },
+                    },
+                },
+            ])
         ],
         controllers: [auth_controller_1.AuthController],
         exports: [jwt_strategy_1.JwtStrategy, passport_1.PassportModule, auth_service_1.AuthService],

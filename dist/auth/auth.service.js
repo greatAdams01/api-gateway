@@ -16,6 +16,7 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const jwt_1 = require("@nestjs/jwt");
+const microservices_1 = require("@nestjs/microservices");
 const mongoose_1 = require("@nestjs/mongoose");
 const bcrypt = require("bcryptjs");
 const jsonwebtoken_1 = require("jsonwebtoken");
@@ -24,9 +25,10 @@ const user_dto_1 = require("../user/dto/user.dto");
 const user_schema_1 = require("../user/entity/user.schema");
 const config_1 = require("../utils/config");
 let AuthService = class AuthService {
-    constructor(userModel, req, jwtService) {
+    constructor(userModel, req, client, jwtService) {
         this.userModel = userModel;
         this.req = req;
+        this.client = client;
         this.jwtService = jwtService;
     }
     async registerWithEmail(data) {
@@ -96,6 +98,7 @@ let AuthService = class AuthService {
             }
             const { firstName, lastName, image, id, role, accountType, reps, isActive, } = user;
             const token = this.jwtService.sign(user.id);
+            this.client.emit('test_log', 'Test');
             return {
                 user: {
                     firstName,
@@ -213,7 +216,9 @@ AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
     __param(1, (0, common_1.Inject)(core_1.REQUEST)),
-    __metadata("design:paramtypes", [mongoose_2.Model, Object, jwt_1.JwtService])
+    __param(2, (0, common_1.Inject)('MAIL_SERVICE')),
+    __metadata("design:paramtypes", [mongoose_2.Model, Object, microservices_1.ClientProxy,
+        jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

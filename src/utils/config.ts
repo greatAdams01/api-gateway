@@ -26,6 +26,7 @@ const mongo_uri = process.env.MONGO_URI
   //   : 'mongodb://localhost/nest-dev';
 
 const config = {
+  RMQ_URL: process.env.RMQ_URL,
   MONGO_URI: process.env.MONGO_URI || mongo_uri,
   V2_MONGO_URI: process.env.V2_MONGO_URI || '',
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,

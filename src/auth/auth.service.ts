@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { verify } from 'jsonwebtoken';
@@ -25,6 +26,7 @@ export class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @Inject(REQUEST) private readonly req: ReqWithUser,
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
     private jwtService: JwtService,
   ) {}
   async registerWithEmail(
@@ -140,7 +142,7 @@ export class AuthService {
         isActive,
       } = user;
       const token = this.jwtService.sign(user.id);
-
+      this.client.emit('test_log', 'Test')
       return {
         user: {
           firstName,

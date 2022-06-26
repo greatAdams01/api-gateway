@@ -2,14 +2,17 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Post,
   Req,
   Res,
   Session,
   UseGuards,
 } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { ApiParam } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { Observable } from 'rxjs';
 import { ISession, ReqWithUser } from 'src/typings';
 import {
   ChangePasswordDTO,
@@ -22,7 +25,10 @@ import { RestAuthGuard } from './guards/local.guard';
 
 @Controller('api/v3/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
+    private readonly authService: AuthService
+    ) {}
   @Get()
   home() {
     return 'Welcome to auth';
@@ -33,6 +39,14 @@ export class AuthController {
   async me(@Req() req: ReqWithUser) {
     return req.user;
   }
+
+  @Get('sum')
+  accumulate():Observable<number> {
+    const pattern = { cmd: 'sum' };
+    const payload = [1, 2, 3];
+    return this.client.send<number>(pattern, payload);
+  }
+
 
   @Post('login')
   @ApiParam({
