@@ -14,7 +14,7 @@ import { ReqWithUser } from 'src/typings';
 import { CreateReportDTO, UpdateReportDTO } from '../dto/report.dto';
 import { ReportService } from '../services/report.service';
 
-@Controller('api/v3/report')
+@Controller('report')
 export class ReportController {
   constructor(private readonly reportService: ReportService) {}
   @Get()

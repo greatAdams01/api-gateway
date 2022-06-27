@@ -19,7 +19,7 @@ import {
 } from '../dto/applicant.dto';
 import { ApplicantService } from '../services/applicant.service';
 
-@Controller('api/v3/applicant')
+@Controller('applicant')
 export class ApplicantController {
   constructor(private readonly applicantService: ApplicantService) {}
   @UseGuards(RestAuthGuard)

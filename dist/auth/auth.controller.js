@@ -163,7 +163,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "changePassword", null);
 AuthController = __decorate([
-    (0, common_1.Controller)('api/v3/auth'),
+    (0, common_1.Controller)('auth'),
     __param(0, (0, common_1.Inject)('MAIL_SERVICE')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy,
         auth_service_1.AuthService])

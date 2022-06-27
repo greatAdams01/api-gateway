@@ -20,17 +20,27 @@ import {
   ISessionResponseData,
 } from '../services/campaign.service';
 
-@Controller('api/v3/campaign')
+@Controller('campaign')
 export class CampaignController {
   constructor(
     private readonly campaignService: CampaignService,
     private readonly campaignGateway: CampaignGateway,
   ) {}
+
   @UseGuards(RestAuthGuard)
   @Post()
   create(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
+    console.log('Fired')
     return this.campaignService.create(data, req.user);
   }
+
+  @UseGuards(RestAuthGuard)
+  @Post('test')
+  testIt(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
+    console.log('Fired')
+    return this.campaignService.create(data, req.user);
+  }
+
   @Get('session/:id')
   async getSession(
     @Param('id') id: string,

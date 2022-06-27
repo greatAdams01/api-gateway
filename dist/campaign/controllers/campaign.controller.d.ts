@@ -8,6 +8,7 @@ export declare class CampaignController {
     private readonly campaignGateway;
     constructor(campaignService: CampaignService, campaignGateway: CampaignGateway);
     create(data: CreateCampaignDTO, req: ReqWithUser): Promise<import("../schema/campaign.schema").Campaign>;
+    testIt(data: CreateCampaignDTO, req: ReqWithUser): Promise<import("../schema/campaign.schema").Campaign>;
     getSession(id: string, req: Request): Promise<ISessionResponseData>;
     findAll(): Promise<import("../schema/campaign.schema").Campaign[]>;
     findAllNotice(model: string): Promise<Omit<import("../../notification/notification.schema").Notice & import("mongoose").Document<any, any, any> & {

@@ -22,7 +22,7 @@ import {
 } from './dto/user.dto';
 import { UserService } from './user.service';
 
-@Controller('api/v3/user')
+@Controller('user')
 @UseInterceptors(CacheInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}

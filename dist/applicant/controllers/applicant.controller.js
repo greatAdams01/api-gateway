@@ -115,7 +115,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ApplicantController.prototype, "seedApplicants", null);
 ApplicantController = __decorate([
-    (0, common_1.Controller)('api/v3/applicant'),
+    (0, common_1.Controller)('applicant'),
     __metadata("design:paramtypes", [applicant_service_1.ApplicantService])
 ], ApplicantController);
 exports.ApplicantController = ApplicantController;

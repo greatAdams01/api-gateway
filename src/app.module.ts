@@ -48,7 +48,7 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
         path: join(process.cwd(), 'src/graphql.ts'),
       },
       installSubscriptionHandlers: true,
-      path: '/api/v3/graphql',
+      path: '/graphql',
       cors: false,
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',

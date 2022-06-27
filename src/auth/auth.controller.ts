@@ -23,7 +23,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { RestAuthGuard } from './guards/local.guard';
 
-@Controller('api/v3/auth')
+@Controller('auth')
 export class AuthController {
   constructor(
     @Inject('MAIL_SERVICE') private client: ClientProxy,

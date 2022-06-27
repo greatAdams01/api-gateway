@@ -10,7 +10,7 @@ import {
 import { CreateExhibitDTO, UpdateExhibitDTO } from '../dto/exhibit.dto';
 import { ExhibitService } from '../services/exhibit.service';
 
-@Controller('api/v3/exhibit')
+@Controller('exhibit')
 export class ExhibitController {
   constructor(private readonly exhibitService: ExhibitService) {}
   @Post()

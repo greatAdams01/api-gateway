@@ -17,7 +17,7 @@ import {
 } from '../dto/endorsement.dto';
 import { EndorsementService } from '../services/endorsement.service';
 
-@Controller('api/v3/endorsement')
+@Controller('endorsement')
 export class EndorsementController {
   constructor(private readonly endorsementService: EndorsementService) {}
 

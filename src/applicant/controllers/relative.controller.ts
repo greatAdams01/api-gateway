@@ -10,7 +10,7 @@ import {
 import { CreateRelativeDTO, UpdateRelativeDTO } from '../dto/relative.dto';
 import { RelativeService } from '../services/relative.service';
 
-@Controller('api/v3/relative')
+@Controller('relative')
 export class RelativeController {
   constructor(private readonly relativeService: RelativeService) {}
   @Post()

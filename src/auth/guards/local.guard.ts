@@ -34,7 +34,7 @@ export class CustomLoginGuard extends AuthGuard('custom') {
 export class RestAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-
+    console.log(request)
     return await request.isAuthenticated();
   }
 }

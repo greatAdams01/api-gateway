@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RelativeController.prototype, "seedRelatives", null);
 RelativeController = __decorate([
-    (0, common_1.Controller)('api/v3/relative'),
+    (0, common_1.Controller)('relative'),
     __metadata("design:paramtypes", [relative_service_1.RelativeService])
 ], RelativeController);
 exports.RelativeController = RelativeController;

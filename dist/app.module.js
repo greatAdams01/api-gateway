@@ -49,7 +49,7 @@ AppModule = __decorate([
                     path: (0, path_1.join)(process.cwd(), 'src/graphql.ts'),
                 },
                 installSubscriptionHandlers: true,
-                path: '/api/v3/graphql',
+                path: '/graphql',
                 cors: false,
                 buildSchemaOptions: {
                     dateScalarMode: 'timestamp',

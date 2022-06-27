@@ -47,6 +47,7 @@ exports.CustomLoginGuard = CustomLoginGuard;
 let RestAuthGuard = class RestAuthGuard {
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
+        console.log(request);
         return await request.isAuthenticated();
     }
 };
