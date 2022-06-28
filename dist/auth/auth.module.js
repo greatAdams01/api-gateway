@@ -32,7 +32,6 @@ AuthModule = __decorate([
             jwt_strategy_1.JwtStrategy,
             auth_resolver_1.AuthResolver,
             auth_service_1.AuthService,
-            jwt_strategy_1.SessionSerializer,
             user_service_1.UserService,
         ],
         imports: [
@@ -40,7 +39,7 @@ AuthModule = __decorate([
                 { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
                 { name: applicant_shema_1.Applicant.name, schema: applicant_shema_1.ApplicantSchema },
             ]),
-            passport_1.PassportModule,
+            passport_1.PassportModule.register({ defaultStrategy: 'jwt' }),
             jwt_1.JwtModule.register({
                 secret: config_1.default.SECRET || 'khdkdkfkfkfk',
             }),

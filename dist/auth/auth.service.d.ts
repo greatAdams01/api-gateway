@@ -28,4 +28,5 @@ export declare class AuthService {
     resendVerificationToken(email: string): Promise<UserDocument>;
     changePassword(data: ChangePasswordDTO): Promise<UserDocument>;
     verifyUser(token: string): Promise<Partial<UserDocument>>;
+    verifyJWT(token: string): Promise<Partial<UserDocument>>;
 }

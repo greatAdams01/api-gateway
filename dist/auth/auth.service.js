@@ -41,7 +41,11 @@ let AuthService = class AuthService {
         const payload = Object.assign(Object.assign({}, data), { password: bcrypt.hashSync(password, 10), emailToken: (Math.floor(Math.random() * 90000) + 10000).toString(), firstName: (_b = (_a = data === null || data === void 0 ? void 0 : data.name) === null || _a === void 0 ? void 0 : _a.split(' ')) === null || _b === void 0 ? void 0 : _b[0], lastName: (_d = (_c = data === null || data === void 0 ? void 0 : data.name) === null || _c === void 0 ? void 0 : _c.split(' ')) === null || _d === void 0 ? void 0 : _d[1], country: session.location.country_name, city: session.location.city });
         try {
             user = await this.userModel.create(payload);
-            const token = this.jwtService.sign(user.id);
+            const payloadJWT = {
+                email: user.email,
+                sub: user._id
+            };
+            const token = this.jwtService.sign(payloadJWT);
             return {
                 user: {
                     id: user._id,
@@ -62,7 +66,11 @@ let AuthService = class AuthService {
         if (user) {
             try {
                 await this.userModel.findByIdAndUpdate(user.id, Object.assign(Object.assign({}, data), { image: user.image ? user.image : data.image }), { new: true });
-                const token = this.jwtService.sign(user.id);
+                const payloadJWT = {
+                    email: user.email,
+                    sub: user._id
+                };
+                const token = this.jwtService.sign(payloadJWT);
                 return { user, token };
             }
             catch (error) {
@@ -71,7 +79,11 @@ let AuthService = class AuthService {
         }
         try {
             user = await this.userModel.create(Object.assign(Object.assign({}, data), { country: session.location.country_name, city: session.location.city, isActive: true }));
-            const token = this.jwtService.sign(user.id);
+            const payloadJWT = {
+                email: user.email,
+                sub: user._id
+            };
+            const token = this.jwtService.sign(payloadJWT);
             return { user, token };
         }
         catch (error) {
@@ -97,7 +109,11 @@ let AuthService = class AuthService {
                     throw new common_1.BadRequestException('Please contact support@edfhr.org to activate your account');
             }
             const { firstName, lastName, image, id, role, accountType, reps, isActive, } = user;
-            const token = this.jwtService.sign(user.id);
+            const payloadJWT = {
+                email: user.email,
+                sub: user._id
+            };
+            const token = this.jwtService.sign(payloadJWT);
             this.client.emit('test_log', 'Test');
             return {
                 user: {
@@ -210,6 +226,13 @@ let AuthService = class AuthService {
         catch (error) {
             throw error;
         }
+    }
+    async verifyJWT(token) {
+        const decoded = this.jwtService.verify(token, {
+            secret: config_1.default.SECRET
+        });
+        const user = await this.userModel.findOne({ email: decoded.email });
+        return user;
     }
 };
 AuthService = __decorate([

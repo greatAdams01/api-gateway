@@ -14,17 +14,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampaignController = void 0;
 const common_1 = require("@nestjs/common");
-const local_guard_1 = require("../../auth/guards/local.guard");
 const campaign_dto_1 = require("../dto/campaign.dto");
 const campaign_gateway_1 = require("../gateway/campaign.gateway");
 const campaign_service_1 = require("../services/campaign.service");
+const jwt_guard_1 = require("../../auth/guards/jwt.guard");
 let CampaignController = class CampaignController {
     constructor(campaignService, campaignGateway) {
         this.campaignService = campaignService;
         this.campaignGateway = campaignGateway;
     }
     create(data, req) {
-        console.log('Fired');
+        console.log(req.user);
         return this.campaignService.create(data, req.user);
     }
     testIt(data, req) {
@@ -68,7 +68,7 @@ let CampaignController = class CampaignController {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -77,7 +77,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)('test'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -114,7 +114,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Get)('mycampaign'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -129,7 +129,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Delete)('/single/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -137,7 +137,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CampaignController.prototype, "delete", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)('like'),
     __param(0, (0, common_1.Body)('id')),
     __param(1, (0, common_1.Req)()),

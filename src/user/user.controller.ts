@@ -12,7 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+// import { JwtAuthGuard } from 'src/auth/guards/local.guard';
 import { ReqWithUser } from 'src/typings';
 import {
   AssignUserAdminDTO,
@@ -72,7 +72,7 @@ export class UserController {
     const user = await this.userService.accountType(data);
     return { id: user.id, accountType: user.accountType };
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('upload')
   async upload(@Body() data: { image: string }, @Req() req: ReqWithUser) {
     const user = await this.userService.uploadImage(data.image, req?.user);

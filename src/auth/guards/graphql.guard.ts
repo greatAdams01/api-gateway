@@ -8,18 +8,18 @@ import { Response } from 'express';
 import { User } from 'src/user/entity/user.schema';
 
 @Injectable()
-export class GQLoginGuard extends AuthGuard('local') {
+export class GQLoginGuard extends AuthGuard('jwt') {
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
     return ctx.getContext().req;
   }
-  async canActivate(context: ExecutionContext) {
-    const result = (await super.canActivate(context)) as boolean;
-    const request = context.switchToHttp().getRequest();
+  // async canActivate(context: ExecutionContext) {
+  //   const result = (await super.canActivate(context)) as boolean;
+  //   const request = context.switchToHttp().getRequest();
 
-    await super.logIn(request);
-    return result;
-  }
+  //   await super.logIn(request);
+  //   return result;
+  // }
 }
 
 @Injectable()

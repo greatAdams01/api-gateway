@@ -11,16 +11,10 @@ const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
 const passport_1 = require("@nestjs/passport");
-let GQLoginGuard = class GQLoginGuard extends (0, passport_1.AuthGuard)('local') {
+let GQLoginGuard = class GQLoginGuard extends (0, passport_1.AuthGuard)('jwt') {
     getRequest(context) {
         const ctx = graphql_1.GqlExecutionContext.create(context);
         return ctx.getContext().req;
-    }
-    async canActivate(context) {
-        const result = (await super.canActivate(context));
-        const request = context.switchToHttp().getRequest();
-        await super.logIn(request);
-        return result;
     }
 };
 GQLoginGuard = __decorate([

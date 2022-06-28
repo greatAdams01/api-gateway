@@ -18,7 +18,7 @@ import config from 'src/utils/config';
 import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
-import { JwtStrategy, SessionSerializer } from './strategies/jwt.strategy'; 
+import { JwtStrategy } from './strategies/jwt.strategy'; 
 import { ClientsModule, Transport } from  "@nestjs/microservices"
 
 @Module({
@@ -26,7 +26,6 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
     JwtStrategy,
     AuthResolver,
     AuthService,
-    SessionSerializer,
     UserService,
   ],
   imports: [
@@ -34,7 +33,7 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
       { name: User.name, schema: UserSchema },
       { name: Applicant.name, schema: ApplicantSchema },
     ]),
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: config.SECRET || 'khdkdkfkfkfk',
       // signOptions: { expiresIn: '1d' },

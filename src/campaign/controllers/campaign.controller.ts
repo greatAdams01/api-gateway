@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+// import { JwtAuthGuard } from 'src/auth/guards/local.guard';
 import { ReqWithUser } from 'src/typings';
 import { CreateCampaignDTO, UpdateCampaignDTO } from '../dto/campaign.dto';
 import { CampaignGateway } from '../gateway/campaign.gateway';
@@ -19,6 +19,7 @@ import {
   CampaignService,
   ISessionResponseData,
 } from '../services/campaign.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('campaign')
 export class CampaignController {
@@ -27,14 +28,14 @@ export class CampaignController {
     private readonly campaignGateway: CampaignGateway,
   ) {}
 
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
-    console.log('Fired')
+    console.log(req.user)
     return this.campaignService.create(data, req.user);
   }
 
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('test')
   testIt(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
     console.log('Fired')
@@ -70,7 +71,7 @@ export class CampaignController {
   findOne(@Param('slug') slug: string) {
     return this.campaignService.findOne(slug);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('mycampaign')
   async myCampaign(@Req() req: ReqWithUser) {
     return this.campaignService.myCampaigns(req?.user?.id);
@@ -79,13 +80,13 @@ export class CampaignController {
   update(@Body() data: UpdateCampaignDTO) {
     return this.campaignService.update(data);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('/single/:id')
   async delete(@Param('id') id: string) {
     const campaign = await this.campaignService.delete(id);
     return campaign.id;
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('like')
   async like(@Body('id') id: string, @Req() req: ReqWithUser) {
     return await this.campaignService.like(id, req.user);

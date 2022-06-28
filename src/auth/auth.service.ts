@@ -12,6 +12,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { verify } from 'jsonwebtoken';
 import { Model } from 'mongoose';
+import { retry } from 'rxjs';
 import { ISession, ReqWithUser } from 'src/typings';
 import {
   AccountTypeEnum,
@@ -58,7 +59,11 @@ export class AuthService {
     try {
       // await sendMail(payload.email, 'Verify your email', html);
       user = await this.userModel.create(payload);
-      const token = this.jwtService.sign(user.id);
+      const payloadJWT = {
+        email: user.email,
+        sub: user._id
+      }
+      const token = this.jwtService.sign(payloadJWT);
 
       return {
         user: {
@@ -85,7 +90,11 @@ export class AuthService {
           { ...data, image: user.image ? user.image : data.image },
           { new: true },
         );
-        const token = this.jwtService.sign(user.id);
+        const payloadJWT = {
+          email: user.email,
+          sub: user._id
+        }
+        const token = this.jwtService.sign(payloadJWT);
         return { user, token };
       } catch (error) {
         throw error;
@@ -98,7 +107,12 @@ export class AuthService {
         city: session.location.city,
         isActive: true
       });
-      const token = this.jwtService.sign(user.id);
+
+      const payloadJWT = {
+        email: user.email,
+        sub: user._id
+      }
+      const token = this.jwtService.sign(payloadJWT);
       return { user, token };
     } catch (error) {
       throw error;
@@ -141,7 +155,12 @@ export class AuthService {
         reps,
         isActive,
       } = user;
-      const token = this.jwtService.sign(user.id);
+
+      const payloadJWT = {
+        email: user.email,
+        sub: user._id
+      }
+      const token = this.jwtService.sign(payloadJWT);
       this.client.emit('test_log', 'Test')
       return {
         user: {
@@ -249,6 +268,7 @@ export class AuthService {
       throw error;
     }
   }
+
   async verifyUser(token: string): Promise<Partial<UserDocument>> {
     const validToken = verify(token, config.SECRET, (err) => {
       if (err) throw new BadRequestException(err);
@@ -263,4 +283,16 @@ export class AuthService {
       throw error;
     }
   }
+
+  async verifyJWT (token: string): Promise<Partial<UserDocument>> {
+    const decoded = this.jwtService.verify(token, {
+      secret: config.SECRET
+    })
+
+    const user = await this.userModel.findOne({ email: decoded.email })
+
+    return user
+  }
+
+
 }

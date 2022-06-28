@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_guard_1 = require("../auth/guards/jwt.guard");
-const local_guard_1 = require("../auth/guards/local.guard");
 const user_dto_1 = require("./dto/user.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
@@ -125,7 +124,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "changeAccountType", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)('upload'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),

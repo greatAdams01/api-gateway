@@ -10,12 +10,6 @@ exports.JwtAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
-    async canActivate(context) {
-        await super.canActivate(context);
-        const request = context.switchToHttp().getRequest();
-        await super.logIn(request);
-        return true;
-    }
 };
 JwtAuthGuard = __decorate([
     (0, common_1.Injectable)()

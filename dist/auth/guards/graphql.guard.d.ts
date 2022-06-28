@@ -3,7 +3,6 @@ import { ExecutionContext } from '@nestjs/common';
 declare const GQLoginGuard_base: import("@nestjs/passport").Type<import("@nestjs/passport").IAuthGuard>;
 export declare class GQLoginGuard extends GQLoginGuard_base {
     getRequest(context: ExecutionContext): any;
-    canActivate(context: ExecutionContext): Promise<boolean>;
 }
 export declare class GQLGuard implements CanActivate {
     canActivate(context: ExecutionContext): Promise<any>;
