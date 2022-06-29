@@ -37,12 +37,11 @@ export class AuthService {
     let user = await this.userModel.findOne({ email });
     const session: ISession = this.req.session;
 
-    console.log(session.location) 
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
 
-    // // if(!session.location.country_name)
-    //   throw new BadRequestException('No user country');
+    if(!session.location.country_name)
+      throw new BadRequestException('No user country');
 
     const payload: Partial<User> = {
       ...data,
@@ -59,7 +58,7 @@ export class AuthService {
     //   <p>Please click to <a href="${CLIENT_URL}/auth?mode=verify token&token=${payload.emailToken}">Verify your account</a> or copy your verification code ${payload.emailToken} </p>
   
     // `;
-    console.log(payload.country)
+    // console.log(user)
     try {
       // await sendMail(payload.email, 'Verify your email', html);
       user = await this.userModel.create(payload);
