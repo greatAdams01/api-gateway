@@ -61,8 +61,8 @@ async function bootstrap() {
   );
   const PORT = process.env.PORT || 8000;
   app.use(express.json({ limit: '50mb' }));
-  // app.use(passport.initialize());
-  // app.use(passport.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.useGlobalPipes(new ValidationPipe());
 
   // app.setGlobalPrefix('api/v3');

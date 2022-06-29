@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const cookieSession = require("express-session");
+const passport = require("passport");
 const express = require("express");
 const app_module_1 = require("./app.module");
 const config_1 = require("./utils/config");
@@ -45,6 +46,8 @@ async function bootstrap() {
     }));
     const PORT = process.env.PORT || 8000;
     app.use(express.json({ limit: '50mb' }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.useGlobalPipes(new common_1.ValidationPipe());
     await app.listen(PORT, () => {
         common_1.Logger.log(`server started on port ${PORT}`);
