@@ -9,7 +9,7 @@ export declare class AuthService {
     private readonly req;
     private client;
     private jwtService;
-    constructor(userModel: Model<UserDocument>, req: ReqWithUser, client: ClientProxy, jwtService: JwtService);
+    constructor(userModel: Model<UserDocument>, req: ReqWithUser | any, client: ClientProxy, jwtService: JwtService);
     registerWithEmail(data: Partial<RegisterWithEmailDTO>): Promise<{
         user: Partial<UserDocument>;
         token: string;

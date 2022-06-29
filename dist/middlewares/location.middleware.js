@@ -19,6 +19,7 @@ let LocationMiddleware = class LocationMiddleware {
             throw err;
         });
         console.log(location);
+        req.location = location;
         if (!session.location) {
             session.location = Object.assign(Object.assign({}, location), { ip });
         }

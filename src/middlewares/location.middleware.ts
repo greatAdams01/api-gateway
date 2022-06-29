@@ -5,7 +5,7 @@ import { IGeo } from 'src/interfaces';
 import { ISession } from 'src/typings';
 @Injectable()
 export class LocationMiddleware implements NestMiddleware {
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req, res: Response, next: NextFunction) {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     ip.toString()
 
@@ -15,6 +15,7 @@ export class LocationMiddleware implements NestMiddleware {
       throw err;
     });
     console.log(location)
+    req.location = location
     if (!session.location) {
       session.location = { ...location, ip };
     }

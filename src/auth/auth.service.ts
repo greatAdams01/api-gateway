@@ -26,7 +26,7 @@ import config, { CLIENT_URL } from 'src/utils/config';
 export class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    @Inject(REQUEST) private readonly req: ReqWithUser,
+    @Inject(REQUEST) private readonly req: ReqWithUser | any,
     @Inject('MAIL_SERVICE') private client: ClientProxy,
     private jwtService: JwtService,
   ) {}
@@ -35,12 +35,12 @@ export class AuthService {
   ): Promise<{ user: Partial<UserDocument>; token: string }> {
     const { password, email } = data;
     let user = await this.userModel.findOne({ email });
-    const session: ISession = this.req.session;
+    const location = this.req.location;
 
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
 
-    if(!session.location.country_name)
+    if(!location.country_name)
       throw new BadRequestException('No user country');
 
     const payload: Partial<User> = {
@@ -50,8 +50,8 @@ export class AuthService {
       // name: `${data?.firstName} ${data?.lastName}`,
       firstName: data?.name?.split(' ')?.[0],
       lastName: data?.name?.split(' ')?.[1],
-      country: session.location.country_name,
-      city: session.location.city,
+      country: location.country_name,
+      city: location.city,
     };
     // const html = `
     //   <h3>Thank you for registering with EDFHR</h3>
