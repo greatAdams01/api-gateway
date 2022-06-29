@@ -6,7 +6,9 @@ import { ISession } from 'src/typings';
 @Injectable()
 export class LocationMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    const ip = req.ip
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+    ip.toString()
+
     console.log(ip)
     const session: ISession = req.session;
     const location: IGeo = await ipLocation.fetch(ip).catch((err) => {

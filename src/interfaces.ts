@@ -9,5 +9,5 @@ export interface IGeo {
   time_zone: string;
   latitude: number;
   longitude: number;
-  ip: string;
+  ip?: any;
 }
