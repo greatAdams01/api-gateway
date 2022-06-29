@@ -37,12 +37,12 @@ export class AuthService {
     let user = await this.userModel.findOne({ email });
     const session: ISession = this.req.session;
 
-    // console.log(session.location);
+    // console.log(session.location, 'Fuck') ;
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
 
-    if(!session.location.country_name)
-      throw new BadRequestException('No user country');
+    // // if(!session.location.country_name)
+    //   throw new BadRequestException('No user country');
 
     const payload: Partial<User> = {
       ...data,
