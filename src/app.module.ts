@@ -14,6 +14,7 @@ import { CampaignModule } from './campaign/campaign.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { ApplicantModule } from './applicant/applicant.module';
 import { ClientsModule, Transport } from  "@nestjs/microservices"
+import { View, ViewSchema } from './campaign/schema/campaign.schema';
 
 @Module({
 
@@ -40,6 +41,7 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
         },
       },
     ]),
+    MongooseModule.forFeature([{ name: View.name, schema: ViewSchema }]),
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

@@ -11,12 +11,13 @@ const common_1 = require("@nestjs/common");
 const ipLocation = require("ip-to-location");
 let LocationMiddleware = class LocationMiddleware {
     async use(req, res, next) {
-        var _a;
-        const ip = (_a = req.cookies) === null || _a === void 0 ? void 0 : _a.ed_LOCAL;
+        const ip = req.ip;
+        console.log(ip);
         const session = req.session;
         const location = await ipLocation.fetch(ip).catch((err) => {
             throw err;
         });
+        console.log(location);
         if (!session.location) {
             session.location = Object.assign(Object.assign({}, location), { ip });
         }

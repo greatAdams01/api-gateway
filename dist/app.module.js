@@ -23,6 +23,7 @@ const campaign_module_1 = require("./campaign/campaign.module");
 const transaction_module_1 = require("./transaction/transaction.module");
 const applicant_module_1 = require("./applicant/applicant.module");
 const microservices_1 = require("@nestjs/microservices");
+const campaign_schema_1 = require("./campaign/schema/campaign.schema");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -42,6 +43,7 @@ AppModule = __decorate([
                     },
                 },
             ]),
+            mongoose_1.MongooseModule.forFeature([{ name: campaign_schema_1.View.name, schema: campaign_schema_1.ViewSchema }]),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 typePaths: ['./**/*.graphql'],
