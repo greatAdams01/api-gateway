@@ -20,7 +20,7 @@ export declare class AuthController {
         isActive: boolean;
     }>;
     register(data: RegisterWithEmailDTO, session: ISession): Promise<{
-        id: any;
+        user: Partial<import("../user/entity/user.schema").UserDocument>;
         token: string;
         isActive: boolean;
     }>;

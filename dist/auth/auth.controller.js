@@ -49,7 +49,7 @@ let AuthController = class AuthController {
         const location = session.location;
         const result = await this.authService.registerWithEmail(Object.assign(Object.assign({}, data), { location }));
         return {
-            id: result.user.id,
+            user: result.user,
             token: result.token,
             isActive: result.user.isActive,
         };

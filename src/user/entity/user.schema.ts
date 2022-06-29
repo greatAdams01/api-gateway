@@ -84,9 +84,9 @@ export class User {
   accountName: string;
   @Prop({ require: true })
   country: string;
-  @Prop()
+  @Prop({ require: true })
   state: string;
-  @Prop()
+  @Prop({ require: true })
   city: string;
   @Prop({ type: Date, default: Date.now })
   lastSeen: Date;

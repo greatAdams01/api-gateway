@@ -40,6 +40,10 @@ export class AuthService {
     // console.log(session.location);
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
+
+    if(!session.location.country_name)
+      throw new BadRequestException('No user country');
+
     const payload: Partial<User> = {
       ...data,
       password: bcrypt.hashSync(password, 10),
@@ -66,10 +70,7 @@ export class AuthService {
       const token = this.jwtService.sign(payloadJWT);
 
       return {
-        user: {
-          id: user._id,
-          isActive: user.isActive,
-        },
+        user,
         token,
       };
     } catch (error) {

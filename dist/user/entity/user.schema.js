@@ -124,11 +124,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "country", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ require: true }),
     __metadata("design:type", String)
 ], User.prototype, "state", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ require: true }),
     __metadata("design:type", String)
 ], User.prototype, "city", void 0);
 __decorate([
