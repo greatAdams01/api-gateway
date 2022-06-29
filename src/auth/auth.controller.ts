@@ -70,12 +70,9 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() data: RegisterWithEmailDTO,
-    @Session() session: ISession,
   ) {
-    const location = session.location;
     const result = await this.authService.registerWithEmail({
-      ...data,
-      location,
+      ...data
     });
 
     return {

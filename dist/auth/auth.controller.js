@@ -45,9 +45,8 @@ let AuthController = class AuthController {
             isActive: result.user.isActive,
         };
     }
-    async register(data, session) {
-        const location = session.location;
-        const result = await this.authService.registerWithEmail(Object.assign(Object.assign({}, data), { location }));
+    async register(data) {
+        const result = await this.authService.registerWithEmail(Object.assign({}, data));
         return {
             user: result.user,
             token: result.token,
@@ -113,9 +112,8 @@ __decorate([
 __decorate([
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.RegisterWithEmailDTO, Object]),
+    __metadata("design:paramtypes", [user_dto_1.RegisterWithEmailDTO]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([

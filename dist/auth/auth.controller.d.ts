@@ -1,6 +1,6 @@
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
-import { ISession, ReqWithUser } from 'src/typings';
+import { ReqWithUser } from 'src/typings';
 import { ChangePasswordDTO, RegisterWithEmailDTO } from 'src/user/dto/user.dto';
 import { AuthService } from './auth.service';
 export declare class AuthController {
@@ -19,7 +19,7 @@ export declare class AuthController {
         token: string;
         isActive: boolean;
     }>;
-    register(data: RegisterWithEmailDTO, session: ISession): Promise<{
+    register(data: RegisterWithEmailDTO): Promise<{
         user: Partial<import("../user/entity/user.schema").UserDocument>;
         token: string;
         isActive: boolean;

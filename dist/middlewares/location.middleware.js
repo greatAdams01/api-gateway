@@ -17,8 +17,8 @@ let LocationMiddleware = class LocationMiddleware {
         const location = await ipLocation.fetch(ip).catch((err) => {
             throw err;
         });
-        console.log(location);
         req.location = location;
+        console.log(req.location);
         next();
     }
 };

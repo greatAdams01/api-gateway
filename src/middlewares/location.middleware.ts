@@ -12,8 +12,8 @@ export class LocationMiddleware implements NestMiddleware {
     const location: IGeo = await ipLocation.fetch(ip).catch((err) => {
       throw err;
     });
-    console.log(location)
     req.location = location
+    console.log(req.location)
 
     next();
   }
