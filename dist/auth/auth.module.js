@@ -30,6 +30,7 @@ AuthModule = __decorate([
     (0, common_1.Module)({
         providers: [
             jwt_strategy_1.JwtStrategy,
+            jwt_strategy_1.SessionSerializer,
             auth_resolver_1.AuthResolver,
             auth_service_1.AuthService,
             user_service_1.UserService,

@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JwtStrategy = void 0;
+exports.SessionSerializer = exports.JwtStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const passport_1 = require("@nestjs/passport");
@@ -40,4 +40,16 @@ JwtStrategy = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], JwtStrategy);
 exports.JwtStrategy = JwtStrategy;
+let SessionSerializer = class SessionSerializer extends passport_1.PassportSerializer {
+    deserializeUser(payload, done) {
+        done(null, payload);
+    }
+    serializeUser(user, done) {
+        done(null, user);
+    }
+};
+SessionSerializer = __decorate([
+    (0, common_1.Injectable)()
+], SessionSerializer);
+exports.SessionSerializer = SessionSerializer;
 //# sourceMappingURL=jwt.strategy.js.map

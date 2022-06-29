@@ -6,18 +6,14 @@ import { ISession } from 'src/typings';
 @Injectable()
 export class LocationMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    const ip = req.ip;
-    console.log(ip)
-    // req.ip
-    // const session: ISession = req.session;
+    const ip = req.cookies?.ed_LOCAL;
+    const session: ISession = req.session;
     const location: IGeo = await ipLocation.fetch(ip).catch((err) => {
       throw err;
     });
-
-    console.log(location)
-    // if (!session.location) {
-    //   session.location = { ...location, ip };
-    // }
+    if (!session.location) {
+      session.location = { ...location, ip };
+    }
 
     next();
   }

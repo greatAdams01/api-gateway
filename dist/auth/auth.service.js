@@ -113,6 +113,8 @@ let AuthService = class AuthService {
                 email: user.email,
                 sub: user._id
             };
+            const session = this.req.session;
+            console.log(session.location);
             const token = this.jwtService.sign(payloadJWT);
             this.client.emit('test_log', 'Test');
             return {

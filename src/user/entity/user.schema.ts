@@ -82,7 +82,7 @@ export class User {
   accountNumber: string;
   @Prop()
   accountName: string;
-  @Prop()
+  @Prop({ require: true })
   country: string;
   @Prop()
   state: string;

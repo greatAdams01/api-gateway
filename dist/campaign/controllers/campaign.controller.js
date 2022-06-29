@@ -24,7 +24,6 @@ let CampaignController = class CampaignController {
         this.campaignGateway = campaignGateway;
     }
     create(data, req) {
-        console.log(req.user);
         return this.campaignService.create(data, req.user);
     }
     testIt(data, req) {

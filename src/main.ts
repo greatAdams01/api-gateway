@@ -43,22 +43,22 @@ async function bootstrap() {
   );
 
   // app.useWebSocketAdapter(new RedisIoAdapter(app));
-  // app.use(cookieParser());
-  // app.use(
-  //   cookieSession({
-  //     secret: config.SECRET,
-  //     name: '__ed',
-  //     saveUninitialized: true,
-  //     resave: false,
-  //     store: MongoStore.create({
-  //       mongoUrl: config.MONGO_URI,
-  //       ttl: 14 * 24 * 60 * 60,
-  //       autoRemove: 'disabled',
+  app.use(cookieParser());
+  app.use(
+    cookieSession({
+      secret: config.SECRET,
+      name: '__ed',
+      saveUninitialized: true,
+      resave: false,
+      store: MongoStore.create({
+        mongoUrl: config.MONGO_URI,
+        ttl: 14 * 24 * 60 * 60,
+        autoRemove: 'disabled',
 
-  //       // mongoOptions: mongooseOption,
-  //     }),
-  //   }),
-  // );
+        // mongoOptions: mongooseOption,
+      }),
+    }),
+  );
   const PORT = process.env.PORT || 8000;
   app.use(express.json({ limit: '50mb' }));
   // app.use(passport.initialize());

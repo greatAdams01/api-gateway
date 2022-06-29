@@ -31,7 +31,6 @@ export class CampaignController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
-    console.log(req.user)
     return this.campaignService.create(data, req.user);
   }
 
