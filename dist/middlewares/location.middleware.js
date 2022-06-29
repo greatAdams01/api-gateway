@@ -13,12 +13,10 @@ let LocationMiddleware = class LocationMiddleware {
     async use(req, res, next) {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         ip.toString();
-        console.log(ip);
         const session = req.session;
         const location = await ipLocation.fetch(ip).catch((err) => {
             throw err;
         });
-        console.log(location);
         if (!session.location) {
             session.location = Object.assign(Object.assign({}, location), { ip });
         }

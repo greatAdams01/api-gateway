@@ -41,8 +41,8 @@ export class AuthService {
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
 
-    // if(!session.location.country_name)
-    //   throw new BadRequestException('No user country');
+    if(!session.location.country_name)
+      throw new BadRequestException('No user country');
 
     const payload: Partial<User> = {
       ...data,
@@ -51,8 +51,8 @@ export class AuthService {
       // name: `${data?.firstName} ${data?.lastName}`,
       firstName: data?.name?.split(' ')?.[0],
       lastName: data?.name?.split(' ')?.[1],
-      country: 'Enter',
-      city: 'enter',
+      country: session.location.country_name,
+      city: session.location.city,
     };
     // const html = `
     //   <h3>Thank you for registering with EDFHR</h3>
