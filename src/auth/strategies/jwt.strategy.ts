@@ -25,18 +25,3 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return user;
   }
 }
-
-@Injectable()
-export class SessionSerializer extends PassportSerializer {
-  deserializeUser(
-    payload: any,
-    done: (err: Error, payload: string) => void,
-  ): any {
-    // console.log('deserialize:', payload);
-    done(null, payload);
-  }
-  serializeUser(user: any, done: (err: Error, user: any) => void): any {
-    // console.log('serialize:', user);
-    done(null, user);
-  }
-}

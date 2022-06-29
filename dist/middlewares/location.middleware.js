@@ -14,15 +14,11 @@ let LocationMiddleware = class LocationMiddleware {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         ip.toString();
         console.log(ip);
-        const session = req.session;
         const location = await ipLocation.fetch(ip).catch((err) => {
             throw err;
         });
         console.log(location);
         req.location = location;
-        if (!session.location) {
-            session.location = Object.assign(Object.assign({}, location), { ip });
-        }
         next();
     }
 };

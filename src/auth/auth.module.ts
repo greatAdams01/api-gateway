@@ -18,13 +18,12 @@ import config from 'src/utils/config';
 import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
-import { JwtStrategy, SessionSerializer } from './strategies/jwt.strategy'; 
+import { JwtStrategy } from './strategies/jwt.strategy'; 
 import { ClientsModule, Transport } from  "@nestjs/microservices"
 
 @Module({
   providers: [
     JwtStrategy,
-    SessionSerializer,
     AuthResolver,
     AuthService,
     UserService,

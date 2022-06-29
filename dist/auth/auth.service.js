@@ -58,7 +58,7 @@ let AuthService = class AuthService {
         }
     }
     async registerWithGoogleAndFacebook(data) {
-        const session = this.req.session;
+        const location = this.req.location;
         let user = await this.userModel
             .findOne({ email: data.email })
             .select('-password');
@@ -77,7 +77,7 @@ let AuthService = class AuthService {
             }
         }
         try {
-            user = await this.userModel.create(Object.assign(Object.assign({}, data), { country: session.location.country_name, city: session.location.city, isActive: true }));
+            user = await this.userModel.create(Object.assign(Object.assign({}, data), { country: location.country_name, city: location.city, isActive: true }));
             const payloadJWT = {
                 email: user.email,
                 sub: user._id
@@ -112,8 +112,6 @@ let AuthService = class AuthService {
                 email: user.email,
                 sub: user._id
             };
-            const session = this.req.session;
-            console.log(session.location);
             const token = this.jwtService.sign(payloadJWT);
             this.client.emit('test_log', 'Test');
             return {

@@ -1,4 +1,3 @@
-import { PassportSerializer } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { Strategy } from 'passport-jwt';
 import { User, UserDocument } from 'src/user/entity/user.schema';
@@ -15,9 +14,5 @@ export declare class JwtStrategy extends JwtStrategy_base {
     } & {
         _id: any;
     }>;
-}
-export declare class SessionSerializer extends PassportSerializer {
-    deserializeUser(payload: any, done: (err: Error, payload: string) => void): any;
-    serializeUser(user: any, done: (err: Error, user: any) => void): any;
 }
 export {};

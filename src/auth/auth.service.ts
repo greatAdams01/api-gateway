@@ -79,7 +79,7 @@ export class AuthService {
   async registerWithGoogleAndFacebook(
     data: UserDocument,
   ): Promise<{ user: Partial<UserDocument>; token: string }> {
-    const session: ISession = this.req.session;
+    const location = this.req.location;
     let user = await this.userModel
       .findOne({ email: data.email })
       .select('-password');
@@ -103,8 +103,8 @@ export class AuthService {
     try {
       user = await this.userModel.create({ 
         ...data,
-        country: session.location.country_name,
-        city: session.location.city,
+        country: location.country_name,
+        city: location.city,
         isActive: true
       });
 
@@ -160,8 +160,6 @@ export class AuthService {
         email: user.email,
         sub: user._id
       }
-      const session: ISession = this.req.session;      
-      console.log(session.location)
       const token = this.jwtService.sign(payloadJWT);
       this.client.emit('test_log', 'Test')
       return {
