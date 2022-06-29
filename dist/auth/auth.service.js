@@ -36,9 +36,11 @@ let AuthService = class AuthService {
         const { password, email } = data;
         let user = await this.userModel.findOne({ email });
         const session = this.req.session;
+        console.log(session.location);
         if (user)
             throw new common_1.BadRequestException('Email already exist, signin instead');
         const payload = Object.assign(Object.assign({}, data), { password: bcrypt.hashSync(password, 10), emailToken: (Math.floor(Math.random() * 90000) + 10000).toString(), firstName: (_b = (_a = data === null || data === void 0 ? void 0 : data.name) === null || _a === void 0 ? void 0 : _a.split(' ')) === null || _b === void 0 ? void 0 : _b[0], lastName: (_d = (_c = data === null || data === void 0 ? void 0 : data.name) === null || _c === void 0 ? void 0 : _c.split(' ')) === null || _d === void 0 ? void 0 : _d[1], country: session.location.country_name, city: session.location.city });
+        console.log(payload.country);
         try {
             user = await this.userModel.create(payload);
             const payloadJWT = {

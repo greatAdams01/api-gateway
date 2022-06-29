@@ -37,7 +37,7 @@ export class AuthService {
     let user = await this.userModel.findOne({ email });
     const session: ISession = this.req.session;
 
-    // console.log(session.location, 'Fuck') ;
+    console.log(session.location) 
     if (user)
       throw new BadRequestException('Email already exist, signin instead');
 
@@ -59,7 +59,7 @@ export class AuthService {
     //   <p>Please click to <a href="${CLIENT_URL}/auth?mode=verify token&token=${payload.emailToken}">Verify your account</a> or copy your verification code ${payload.emailToken} </p>
   
     // `;
-    // console.log(user)
+    console.log(payload.country)
     try {
       // await sendMail(payload.email, 'Verify your email', html);
       user = await this.userModel.create(payload);
