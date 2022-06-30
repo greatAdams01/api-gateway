@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EndorsementResolver.prototype, "getEndorsements", null);
 __decorate([
-    (0, common_1.UseGuards)(graphql_guard_1.GQLGuard),
+    (0, common_1.UseGuards)(graphql_guard_1.GQLoginGuard),
     (0, graphql_1.Mutation)(),
     __param(0, (0, graphql_1.Args)('input')),
     __param(1, (0, graphql_1.Context)('req')),

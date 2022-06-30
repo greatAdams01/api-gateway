@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CurrentUser, GQLGuard } from 'src/auth/guards/graphql.guard';
+import { CurrentUser, GQLGuard, GQLoginGuard } from 'src/auth/guards/graphql.guard';
 import { UserDocument } from 'src/user/entity/user.schema';
 import { CampaignService } from '../services/campaign.service';
 import { EndorsementService } from '../services/endorsement.service';
@@ -14,7 +14,7 @@ export class CampaignResolver {
     private readonly campaignService: CampaignService,
     private readonly endorsementService: EndorsementService,
   ) {}
-  @UseGuards(GQLGuard)
+  @UseGuards(GQLoginGuard)
   @Query()
   async myCampaign(@CurrentUser() user: UserDocument) {
     // console.log(user)

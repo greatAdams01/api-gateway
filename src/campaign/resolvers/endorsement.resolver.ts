@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GQLGuard } from 'src/auth/guards/graphql.guard';
+import { GQLGuard, GQLoginGuard } from 'src/auth/guards/graphql.guard';
 import { ReqWithUser } from 'src/typings';
 import { CreateEndorsementDTO } from '../dto/endorsement.dto';
 import { EndorsementService } from '../services/endorsement.service';
@@ -16,7 +16,7 @@ export class EndorsementResolver {
   async getEndorsements() {
     return await this.endorsementService.findAll();
   }
-  @UseGuards(GQLGuard)
+  @UseGuards(GQLoginGuard)
   @Mutation()
   async createEndorsement(
     @Args('input') input: CreateEndorsementDTO,

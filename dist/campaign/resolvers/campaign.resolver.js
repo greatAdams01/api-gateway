@@ -40,7 +40,7 @@ let CampaignResolver = class CampaignResolver {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(graphql_guard_1.GQLGuard),
+    (0, common_1.UseGuards)(graphql_guard_1.GQLoginGuard),
     (0, graphql_1.Query)(),
     __param(0, (0, graphql_guard_1.CurrentUser)()),
     __metadata("design:type", Function),
