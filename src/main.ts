@@ -9,7 +9,7 @@ import config from './utils/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api/v3/')
+  // app.setGlobalPrefix('api/v3/')
 
   const devOrigins = [
     'http://localhost',
@@ -43,7 +43,6 @@ async function bootstrap() {
   app.use(express.json({ limit: '50mb' }));
   app.useGlobalPipes(new ValidationPipe());
 
-  // app.setGlobalPrefix('api/v3');
   await app.listen(PORT, () => {
     Logger.log(`server started on port ${PORT}`);
   });

@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ExhibitController.prototype, "seedExhibits", null);
 ExhibitController = __decorate([
-    (0, common_1.Controller)('exhibit'),
+    (0, common_1.Controller)('api/v3/exhibit'),
     __metadata("design:paramtypes", [exhibit_service_1.ExhibitService])
 ], ExhibitController);
 exports.ExhibitController = ExhibitController;

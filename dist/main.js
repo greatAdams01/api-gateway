@@ -6,7 +6,6 @@ const express = require("express");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.setGlobalPrefix('api/v3/');
     const devOrigins = [
         'http://localhost',
         'http://localhost:3000',

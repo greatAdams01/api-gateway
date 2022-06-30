@@ -80,7 +80,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AffidavitController.prototype, "seedAffidavit", null);
 AffidavitController = __decorate([
-    (0, common_1.Controller)('affidavit'),
+    (0, common_1.Controller)('api/v3/affidavit'),
     __metadata("design:paramtypes", [affidavit_service_1.AffidavitService])
 ], AffidavitController);
 exports.AffidavitController = AffidavitController;

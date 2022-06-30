@@ -11,7 +11,7 @@ import { CreateAffidavitDTO, UpdateAffidavitDTO } from '../dto/affidavit.dto';
 import { Affidavit } from '../schema/affidavit.schema';
 import { AffidavitService } from '../services/affidavit.service';
 
-@Controller('affidavit')
+@Controller('api/v3/affidavit')
 export class AffidavitController {
   constructor(private readonly affidavitService: AffidavitService) {}
 

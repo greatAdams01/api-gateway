@@ -21,7 +21,7 @@ import {
 } from '../services/campaign.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
-@Controller('campaign')
+@Controller('api/v3/campaign')
 export class CampaignController {
   constructor(
     private readonly campaignService: CampaignService,
@@ -34,12 +34,6 @@ export class CampaignController {
     return this.campaignService.create(data, req.user);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('test')
-  testIt(@Body() data: CreateCampaignDTO, @Req() req: ReqWithUser) {
-    console.log('Fired')
-    return this.campaignService.create(data, req.user);
-  }
 
   @Get('session/:id')
   async getSession(

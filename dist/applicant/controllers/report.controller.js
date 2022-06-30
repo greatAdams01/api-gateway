@@ -93,7 +93,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReportController.prototype, "seed", null);
 ReportController = __decorate([
-    (0, common_1.Controller)('report'),
+    (0, common_1.Controller)('api/v3/report'),
     __metadata("design:paramtypes", [report_service_1.ReportService])
 ], ReportController);
 exports.ReportController = ReportController;

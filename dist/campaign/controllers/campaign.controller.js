@@ -26,10 +26,6 @@ let CampaignController = class CampaignController {
     create(data, req) {
         return this.campaignService.create(data, req.user);
     }
-    testIt(data, req) {
-        console.log('Fired');
-        return this.campaignService.create(data, req.user);
-    }
     async getSession(id, req) {
         const campaign = await this.campaignService.updateSession(id, req.sessionID);
         return campaign.id;
@@ -75,15 +71,6 @@ __decorate([
     __metadata("design:paramtypes", [campaign_dto_1.CreateCampaignDTO, Object]),
     __metadata("design:returntype", void 0)
 ], CampaignController.prototype, "create", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('test'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [campaign_dto_1.CreateCampaignDTO, Object]),
-    __metadata("design:returntype", void 0)
-], CampaignController.prototype, "testIt", null);
 __decorate([
     (0, common_1.Get)('session/:id'),
     __param(0, (0, common_1.Param)('id')),
@@ -160,7 +147,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CampaignController.prototype, "viewCamp", null);
 CampaignController = __decorate([
-    (0, common_1.Controller)('campaign'),
+    (0, common_1.Controller)('api/v3/campaign'),
     __metadata("design:paramtypes", [campaign_service_1.CampaignService,
         campaign_gateway_1.CampaignGateway])
 ], CampaignController);

@@ -14,7 +14,7 @@ import { ReqWithUser } from 'src/typings';
 import { CreateRepCommentDTO, UpdateRepCommentDTO } from '../dto/report.dto';
 import { RepCommentService } from '../services/rep-comment.service';
 
-@Controller('rep-comment')
+@Controller('api/v3/rep-comment')
 export class RepCommentController {
   constructor(private readonly commentService: RepCommentService) {}
   @UseGuards(RestAuthGuard)

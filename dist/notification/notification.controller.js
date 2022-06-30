@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], NotificationController.prototype, "findAll", null);
 NotificationController = __decorate([
-    (0, common_1.Controller)('notification'),
+    (0, common_1.Controller)('api/v3/notification'),
     __metadata("design:paramtypes", [notification_service_1.NotificationService])
 ], NotificationController);
 exports.NotificationController = NotificationController;

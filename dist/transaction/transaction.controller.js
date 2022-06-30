@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TransactionController.prototype, "webhook", null);
 TransactionController = __decorate([
-    (0, common_1.Controller)('transaction'),
+    (0, common_1.Controller)('api/v3/transaction'),
     __metadata("design:paramtypes", [transaction_service_1.TransactionService])
 ], TransactionController);
 exports.TransactionController = TransactionController;

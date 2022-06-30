@@ -88,7 +88,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EndorsementController.prototype, "like", null);
 EndorsementController = __decorate([
-    (0, common_1.Controller)('endorsement'),
+    (0, common_1.Controller)('api/v3/endorsement'),
     __metadata("design:paramtypes", [endorsement_service_1.EndorsementService])
 ], EndorsementController);
 exports.EndorsementController = EndorsementController;

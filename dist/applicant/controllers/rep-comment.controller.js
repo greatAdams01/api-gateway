@@ -93,7 +93,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RepCommentController.prototype, "seed", null);
 RepCommentController = __decorate([
-    (0, common_1.Controller)('rep-comment'),
+    (0, common_1.Controller)('api/v3/rep-comment'),
     __metadata("design:paramtypes", [rep_comment_service_1.RepCommentService])
 ], RepCommentController);
 exports.RepCommentController = RepCommentController;
