@@ -31,7 +31,7 @@ __decorate([
     (0, mongoose_1.Prop)({
         type: String,
         enum: user_dto_1.AccountTypeEnum,
-        default: user_dto_1.AccountTypeEnum.Campaigner,
+        default: user_dto_1.AccountTypeEnum.Staff,
     }),
     __metadata("design:type", String)
 ], User.prototype, "accountType", void 0);

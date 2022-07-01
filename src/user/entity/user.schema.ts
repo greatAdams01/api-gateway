@@ -34,7 +34,7 @@ export class User {
   @Prop({
     type: String,
     enum: AccountTypeEnum,
-    default: AccountTypeEnum.Campaigner,
+    default: AccountTypeEnum.Staff,
   })
   accountType: AccountTypeEnum;
   @Prop()
