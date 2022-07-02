@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ReqWithUser } from 'src/typings';
 import { CreateRepCommentDTO, UpdateRepCommentDTO } from '../dto/report.dto';
 import { RepCommentService } from '../services/rep-comment.service';
@@ -17,12 +17,12 @@ import { RepCommentService } from '../services/rep-comment.service';
 @Controller('api/v3/rep-comment')
 export class RepCommentController {
   constructor(private readonly commentService: RepCommentService) {}
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() data: CreateRepCommentDTO, @Req() req: ReqWithUser) {
     return this.commentService.create(data, req.user);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Put()
   update(data: UpdateRepCommentDTO) {
     return this.commentService.update(data);

@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WsGuard = exports.RestAuthGuard = exports.CustomLoginGuard = exports.LoginGuard = void 0;
+exports.WsGuard = exports.CustomLoginGuard = exports.LoginGuard = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const passport_1 = require("@nestjs/passport");
@@ -44,17 +44,6 @@ CustomLoginGuard = __decorate([
     (0, common_1.Injectable)()
 ], CustomLoginGuard);
 exports.CustomLoginGuard = CustomLoginGuard;
-let RestAuthGuard = class RestAuthGuard {
-    async canActivate(context) {
-        const request = context.switchToHttp().getRequest();
-        console.log(request);
-        return await request.isAuthenticated();
-    }
-};
-RestAuthGuard = __decorate([
-    (0, common_1.Injectable)()
-], RestAuthGuard);
-exports.RestAuthGuard = RestAuthGuard;
 let WsGuard = class WsGuard {
     constructor(userModel) {
         this.userModel = userModel;

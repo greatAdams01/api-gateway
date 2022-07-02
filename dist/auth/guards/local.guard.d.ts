@@ -9,9 +9,6 @@ declare const CustomLoginGuard_base: import("@nestjs/passport").Type<import("@ne
 export declare class CustomLoginGuard extends CustomLoginGuard_base {
     canActivate(context: ExecutionContext): Promise<boolean>;
 }
-export declare class RestAuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): Promise<any>;
-}
 export declare class WsGuard implements CanActivate {
     private readonly userModel;
     constructor(userModel: Model<UserDocument>);

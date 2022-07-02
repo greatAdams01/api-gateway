@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RepCommentController = void 0;
 const common_1 = require("@nestjs/common");
-const local_guard_1 = require("../../auth/guards/local.guard");
+const jwt_guard_1 = require("../../auth/guards/jwt.guard");
 const report_dto_1 = require("../dto/report.dto");
 const rep_comment_service_1 = require("../services/rep-comment.service");
 let RepCommentController = class RepCommentController {
@@ -44,7 +44,7 @@ let RepCommentController = class RepCommentController {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -53,7 +53,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], RepCommentController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Put)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [report_dto_1.UpdateRepCommentDTO]),

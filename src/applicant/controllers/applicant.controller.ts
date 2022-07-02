@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ReqWithUser } from 'src/typings';
 import {
   AssignApplicantDTO,
@@ -22,7 +22,7 @@ import { ApplicantService } from '../services/applicant.service';
 @Controller('api/v3/applicant')
 export class ApplicantController {
   constructor(private readonly applicantService: ApplicantService) {}
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() data: CreateApplicantDTO, @Req() req: ReqWithUser) {
     return await this.applicantService.create(data, req.user);

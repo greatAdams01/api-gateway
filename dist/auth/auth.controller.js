@@ -20,7 +20,6 @@ const rxjs_1 = require("rxjs");
 const user_dto_1 = require("../user/dto/user.dto");
 const auth_service_1 = require("./auth.service");
 const jwt_guard_1 = require("./guards/jwt.guard");
-const local_guard_1 = require("./guards/local.guard");
 let AuthController = class AuthController {
     constructor(client, authService) {
         this.client = client;
@@ -153,7 +152,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resendToken", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)('change-password'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

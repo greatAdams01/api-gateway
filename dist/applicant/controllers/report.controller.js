@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportController = void 0;
 const common_1 = require("@nestjs/common");
-const local_guard_1 = require("../../auth/guards/local.guard");
+const jwt_guard_1 = require("../../auth/guards/jwt.guard");
 const report_dto_1 = require("../dto/report.dto");
 const report_service_1 = require("../services/report.service");
 let ReportController = class ReportController {
@@ -71,7 +71,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReportController.prototype, "delete", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),

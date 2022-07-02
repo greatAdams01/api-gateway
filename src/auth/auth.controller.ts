@@ -21,7 +21,7 @@ import {
 } from 'src/user/dto/user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt.guard';
-import { RestAuthGuard } from './guards/local.guard';
+// import { JwtAuthGuard } from './guards/local.guard';
 
 @Controller('api/v3/auth')
 export class AuthController {
@@ -119,7 +119,7 @@ export class AuthController {
     const user = await this.authService.resendVerificationToken(data.email);
     return user.id;
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('change-password')
   async changePassword(@Body() data: ChangePasswordDTO) {
     const user = await this.authService.changePassword(data);

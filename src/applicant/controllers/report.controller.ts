@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ReqWithUser } from 'src/typings';
 import { CreateReportDTO, UpdateReportDTO } from '../dto/report.dto';
 import { ReportService } from '../services/report.service';
@@ -34,7 +34,7 @@ export class ReportController {
   delete(@Param('id') id: string) {
     return this.reportService.delete(id);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() data: CreateReportDTO, @Req() req: ReqWithUser) {
     return this.reportService.create(data, req.user);

@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReportController.prototype, "report", null);
 ReportController = __decorate([
-    (0, common_1.Controller)('api/v3/report'),
+    (0, common_1.Controller)('api/report'),
     __param(0, (0, common_1.Inject)('REPORT_SERVICE')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy])
 ], ReportController);
