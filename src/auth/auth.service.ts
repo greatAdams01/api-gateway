@@ -66,6 +66,12 @@ export class AuthService {
         email: user.email,
         sub: user._id
       }
+      const mailUser = {
+        username: user.firstName,
+        email: user.email,
+        code: user.emailToken
+      }
+      this.client.emit('confirm-user', mailUser)
       const token = this.jwtService.sign(payloadJWT);
 
       return {
@@ -161,7 +167,7 @@ export class AuthService {
         sub: user._id
       }
       const token = this.jwtService.sign(payloadJWT);
-      this.client.emit('test_log', 'Test')
+      
       return {
         user: {
           firstName,

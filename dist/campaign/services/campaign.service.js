@@ -23,11 +23,13 @@ const campaign_interface_1 = require("../dto/campaign.interface");
 const campaign_gateway_1 = require("../gateway/campaign.gateway");
 const campaign_schema_1 = require("../schema/campaign.schema");
 const endorsement_schema_1 = require("../schema/endorsement.schema");
+const microservices_1 = require("@nestjs/microservices");
 class ISessionResponseData {
 }
 exports.ISessionResponseData = ISessionResponseData;
 let CampaignService = class CampaignService {
-    constructor(userModel, viewModel, campaignModel, endorsementModel, noticeModel, campaignGateway, connection) {
+    constructor(client, userModel, viewModel, campaignModel, endorsementModel, noticeModel, campaignGateway, connection) {
+        this.client = client;
         this.userModel = userModel;
         this.viewModel = viewModel;
         this.campaignModel = campaignModel;
@@ -56,6 +58,14 @@ let CampaignService = class CampaignService {
                 campaignTitle: campaign.title,
                 user,
             });
+            const allUserEmail = await this.userModel.find().select('email');
+            const allCampaigns = await this.campaignModel.find();
+            const mailPayload = {
+                users: allUserEmail,
+                campaign: campaign,
+                campaigns: allCampaigns
+            };
+            this.client.emit('campaign-created', mailPayload);
             return campaign;
         }
         catch (error) {
@@ -210,17 +220,16 @@ let CampaignService = class CampaignService {
             throw error;
         }
     }
-    async viewedBy(id, userId) {
+    async viewCampaign(id, userId) {
         try {
             const campaign = await this.campaignModel.findById(id);
             const user = await this.userModel.findById(userId);
             if (!campaign || !user)
                 throw new Error('Not found');
-            const data = {
-                sessionId: 'session.id',
-                country: 'session.location.country_name',
-                user: userId,
-            };
+            if (campaign.author.toString() === userId.toString())
+                return 'Author Viewed';
+            if (campaign.views.includes(userId))
+                return 'Viewed';
             const author = await this.userModel.findById(campaign.author);
             campaign.views.push(userId);
             campaign.save();
@@ -291,13 +300,15 @@ let CampaignService = class CampaignService {
 };
 CampaignService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __param(1, (0, mongoose_1.InjectModel)(campaign_schema_1.View.name)),
-    __param(2, (0, mongoose_1.InjectModel)(campaign_schema_1.Campaign.name)),
-    __param(3, (0, mongoose_1.InjectModel)(endorsement_schema_1.Endorsement.name)),
-    __param(4, (0, mongoose_1.InjectModel)(notification_schema_1.Notice.name)),
-    __param(6, (0, mongoose_1.InjectConnection)()),
-    __metadata("design:paramtypes", [mongoose_2.Model,
+    __param(0, (0, common_1.Inject)('MAIL_SERVICE')),
+    __param(1, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __param(2, (0, mongoose_1.InjectModel)(campaign_schema_1.View.name)),
+    __param(3, (0, mongoose_1.InjectModel)(campaign_schema_1.Campaign.name)),
+    __param(4, (0, mongoose_1.InjectModel)(endorsement_schema_1.Endorsement.name)),
+    __param(5, (0, mongoose_1.InjectModel)(notification_schema_1.Notice.name)),
+    __param(7, (0, mongoose_1.InjectConnection)()),
+    __metadata("design:paramtypes", [microservices_1.ClientProxy,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model,

@@ -1,7 +1,9 @@
 import {
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  BadRequestException
 } from '@nestjs/common';
 import { InjectConnection, InjectModel, Schema } from '@nestjs/mongoose';
 import { Connection, Model, ObjectId } from 'mongoose';
@@ -15,6 +17,7 @@ import { CampaignStatusEnum } from '../dto/campaign.interface';
 import { CampaignGateway } from '../gateway/campaign.gateway';
 import { Campaign, CampaignDocument, View, ViewDocument } from '../schema/campaign.schema';
 import { Endorsement } from '../schema/endorsement.schema';
+import { ClientProxy } from '@nestjs/microservices';
 // import { viewCampMail, updateCampMail } from  '../../utils/sendMaijet'
 
 export class ISessionResponseData {
@@ -25,6 +28,7 @@ export class ISessionResponseData {
 @Injectable()
 export class CampaignService {
   constructor(
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @InjectModel(View.name)
     private viewModel: Model<ViewDocument>,
@@ -65,6 +69,22 @@ export class CampaignService {
         campaignTitle: campaign.title,
         user,
       });
+
+      // Get all users on the db to send emails to
+      const allUserEmail = await this.userModel.find().select('email')
+      // Get all campaigns to display 
+      const allCampaigns = await this.campaignModel.find()
+
+      const mailPayload = {
+        users: allUserEmail,
+        campaign: campaign,
+        campaigns: allCampaigns
+      }
+
+      // Send the event to be handled
+      this.client.emit('campaign-created', mailPayload)
+
+      
       return campaign;
     } catch (error) {
       throw error;
@@ -248,7 +268,8 @@ export class CampaignService {
       throw error;
     }
   }
-  async viewedBy(
+
+  async viewCampaign(
     id: string,
     userId: string,
   ): Promise<string> {
@@ -257,13 +278,10 @@ export class CampaignService {
       const user = await this.userModel.findById(userId)
       if(!campaign || !user) throw new Error('Not found')
 
-      const data = {
-        sessionId: 'session.id',
-        country: 'session.location.country_name',
-        user: userId,
-      }
+      if(campaign.author.toString() === userId.toString())
+        return 'Author Viewed'
 
-      // if(campaign.views.includes(userId)) return 'Viewed'
+      if(campaign.views.includes(userId)) return 'Viewed'
 
       // Sending email to the author 
       const author = await this.userModel.findById(campaign.author)

@@ -46,6 +46,7 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
         options: {
           urls: [config.RMQ_URL],
           queue: 'mail_queue',
+          noAck: false,
           queueOptions: {
             durable: false
           },

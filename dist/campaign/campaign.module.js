@@ -21,6 +21,8 @@ const endorsement_service_1 = require("./services/endorsement.service");
 const mongooseSlug = require("mongoose-slug-generator");
 const user_schema_1 = require("../user/entity/user.schema");
 const notification_schema_1 = require("../notification/notification.schema");
+const config_1 = require("../utils/config");
+const microservices_1 = require("@nestjs/microservices");
 let CampaignModule = class CampaignModule {
 };
 CampaignModule = __decorate([
@@ -43,6 +45,20 @@ CampaignModule = __decorate([
                     },
                 },
             ]),
+            microservices_1.ClientsModule.register([
+                {
+                    name: 'MAIL_SERVICE',
+                    transport: microservices_1.Transport.RMQ,
+                    options: {
+                        urls: [config_1.default.RMQ_URL],
+                        queue: 'mail_queue',
+                        noAck: false,
+                        queueOptions: {
+                            durable: false
+                        },
+                    },
+                },
+            ])
         ],
         providers: [
             campaign_resolver_1.CampaignResolver,

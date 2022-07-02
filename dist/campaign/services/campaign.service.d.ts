@@ -6,12 +6,14 @@ import { CreateCampaignDTO, UpdateCampaignDTO } from '../dto/campaign.dto';
 import { CampaignGateway } from '../gateway/campaign.gateway';
 import { Campaign, CampaignDocument, ViewDocument } from '../schema/campaign.schema';
 import { Endorsement } from '../schema/endorsement.schema';
+import { ClientProxy } from '@nestjs/microservices';
 export declare class ISessionResponseData {
     id: any;
     user: string;
     location: IGeo;
 }
 export declare class CampaignService {
+    private client;
     private readonly userModel;
     private viewModel;
     private readonly campaignModel;
@@ -19,7 +21,7 @@ export declare class CampaignService {
     private readonly noticeModel;
     private campaignGateway;
     private connection;
-    constructor(userModel: Model<UserDocument>, viewModel: Model<ViewDocument>, campaignModel: Model<CampaignDocument>, endorsementModel: Model<Endorsement>, noticeModel: Model<NoticeDocument>, campaignGateway: CampaignGateway, connection: Connection);
+    constructor(client: ClientProxy, userModel: Model<UserDocument>, viewModel: Model<ViewDocument>, campaignModel: Model<CampaignDocument>, endorsementModel: Model<Endorsement>, noticeModel: Model<NoticeDocument>, campaignGateway: CampaignGateway, connection: Connection);
     create(data: CreateCampaignDTO, user: UserDocument): Promise<Campaign>;
     findAll(limit?: number): Promise<Campaign[]>;
     findAllActive(limit?: number): Promise<Campaign[]>;
@@ -31,7 +33,7 @@ export declare class CampaignService {
     unLike(campaign_id: string, user: UserDocument): Promise<CampaignDocument>;
     myCampaigns(user_id: string): Promise<Campaign[]>;
     approveCampaign(campaign_id: string): Promise<CampaignDocument>;
-    viewedBy(id: string, userId: string): Promise<string>;
+    viewCampaign(id: string, userId: string): Promise<string>;
     findAllNotice(model?: string): Promise<Omit<Notice & import("mongoose").Document<any, any, any> & {
         _doc: any;
     } & {

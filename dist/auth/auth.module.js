@@ -51,6 +51,7 @@ AuthModule = __decorate([
                     options: {
                         urls: [config_1.default.RMQ_URL],
                         queue: 'mail_queue',
+                        noAck: false,
                         queueOptions: {
                             durable: false
                         },

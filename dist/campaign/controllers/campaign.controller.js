@@ -58,7 +58,7 @@ let CampaignController = class CampaignController {
     }
     async viewCamp(id, data) {
         const userId = data.userId;
-        const result = await this.campaignService.viewedBy(id, userId);
+        const result = await this.campaignService.viewCampaign(id, userId);
         return result;
     }
 };

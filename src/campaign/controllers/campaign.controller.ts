@@ -95,7 +95,7 @@ export class CampaignController {
     @Body() data: { userId: string; }
     ): Promise<string> {
     const userId = data.userId
-    const result = await this.campaignService.viewedBy(
+    const result = await this.campaignService.viewCampaign(
       id,
       userId
     )

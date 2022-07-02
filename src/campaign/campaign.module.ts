@@ -18,6 +18,8 @@ import { EndorsementService } from './services/endorsement.service';
 import mongooseSlug = require('mongoose-slug-generator');
 import { User, UserSchema } from 'src/user/entity/user.schema';
 import { Notice, NoticeSchema } from 'src/notification/notification.schema';
+import config from 'src/utils/config';
+import { ClientsModule, Transport } from  "@nestjs/microservices"
 
 @Module({
   imports: [
@@ -38,6 +40,20 @@ import { Notice, NoticeSchema } from 'src/notification/notification.schema';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'MAIL_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [config.RMQ_URL],
+          queue: 'mail_queue',
+          noAck: false,
+          queueOptions: {
+            durable: false
+          },
+        },
+      },
+    ])
   ],
   providers: [
     CampaignResolver,
