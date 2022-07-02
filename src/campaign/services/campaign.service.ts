@@ -70,19 +70,25 @@ export class CampaignService {
         user,
       });
 
-      // Get all users on the db to send emails to
-      const allUserEmail = await this.userModel.find().select('email')
-      // Get all campaigns to display 
-      const allCampaigns = await this.campaignModel.find()
 
-      const mailPayload = {
-        users: allUserEmail,
-        campaign: campaign,
-        campaigns: allCampaigns
-      }
+      // Get all users 
+    const users = await this.userModel.find()
+    // Extract email and user name
+    const usersEmails = users.map(user => {
+     return {email: user.email, username: user.firstName}
+    })
 
-      // Send the event to be handled
-      this.client.emit('campaign-created', mailPayload)
+    // Get all campaigns to display 
+    const allCampaigns = await this.campaignModel.find()
+
+    // Payload to be sent
+    const mailPayload = {
+      users: usersEmails,
+      campaign: campaign,
+      campaigns: allCampaigns
+    }
+    // proxy function
+    this.client.emit('campaign-created', mailPayload)
 
       
       return campaign;

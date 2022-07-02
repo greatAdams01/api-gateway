@@ -58,10 +58,13 @@ let CampaignService = class CampaignService {
                 campaignTitle: campaign.title,
                 user,
             });
-            const allUserEmail = await this.userModel.find().select('email');
+            const users = await this.userModel.find();
+            const usersEmails = users.map(user => {
+                return { email: user.email, username: user.firstName };
+            });
             const allCampaigns = await this.campaignModel.find();
             const mailPayload = {
-                users: allUserEmail,
+                users: usersEmails,
                 campaign: campaign,
                 campaigns: allCampaigns
             };
