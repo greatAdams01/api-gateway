@@ -15,6 +15,7 @@ import { TransactionModule } from './transaction/transaction.module';
 import { ApplicantModule } from './applicant/applicant.module';
 import { ClientsModule, Transport } from  "@nestjs/microservices"
 import { View, ViewSchema } from './campaign/schema/campaign.schema';
+import { ReportModule } from './report/report.module';
 
 @Module({
 
@@ -65,7 +66,8 @@ import { View, ViewSchema } from './campaign/schema/campaign.schema';
     ApplicantModule,
     CampaignModule,
     TransactionModule,
-    EnvModule
+    EnvModule,
+    ReportModule
   ],
   controllers: [AppController],
   providers: [AppService],
