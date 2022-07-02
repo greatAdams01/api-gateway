@@ -81,7 +81,7 @@ let CampaignService = class CampaignService {
                 .find()
                 .sort({ createdAt: -1 })
                 .limit(limit)
-                .populate('author', 'id firstName lastName')
+                .populate('author', 'id firstName lastName image')
                 .populate('endorsements', 'id')
                 .populate('views');
             return campaigns;
@@ -118,7 +118,6 @@ let CampaignService = class CampaignService {
     async update(data) {
         try {
             const campaign = await this.campaignModel.findOneAndUpdate({ _id: data.id }, data, { new: true });
-            const author = await this.userModel.findById(campaign.author);
             return campaign;
         }
         catch (error) {

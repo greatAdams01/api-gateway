@@ -146,7 +146,7 @@ export class CampaignService {
         data,
         { new: true },
       );
-      const author = await this.userModel.findById(campaign.author)
+      // const author = await this.userModel.findById(campaign.author)
 
       // await updateCampMail(campaign.title, author.email, author.name)
       return campaign;
