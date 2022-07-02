@@ -58,7 +58,7 @@ export class CampaignGateway implements OnGatewayConnection, OnGatewayInit {
   ) {
     const notice = await this.noticeModel.create({
       event: CampaignSocketEnum.Created,
-      message: `${data?.user?.firstName} ${data?.user?.lastName} created a campaign <i>${data.campaignTitle}<i> `,
+      message: `${data?.user?.firstName} ${data?.user?.lastName} created a campaign ${data.campaignTitle} `,
       user: data?.user?.id,
       db_model: 'campaign',
     });
@@ -72,7 +72,7 @@ export class CampaignGateway implements OnGatewayConnection, OnGatewayInit {
   ) {
     const notice = await this.noticeModel.create({
       event: CampaignSocketEnum.Created,
-      message: `${data?.user?.firstName} ${data?.user?.lastName} endorsed a campaign <i>${data.campaignTitle}<i> `,
+      message: `${data?.user?.firstName} ${data?.user?.lastName} endorsed a campaign ${data.campaignTitle}`,
       user: data?.user?.id,
       db_model: 'campaign',
     });

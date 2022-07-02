@@ -20,8 +20,10 @@ const user_schema_1 = require("../../user/entity/user.schema");
 const campaign_gateway_1 = require("../gateway/campaign.gateway");
 const campaign_schema_1 = require("../schema/campaign.schema");
 const endorsement_schema_1 = require("../schema/endorsement.schema");
+const microservices_1 = require("@nestjs/microservices");
 let EndorsementService = class EndorsementService {
-    constructor(userModel, endorsementModel, CampaignModel, campaignGateway) {
+    constructor(client, userModel, endorsementModel, CampaignModel, campaignGateway) {
+        this.client = client;
         this.userModel = userModel;
         this.endorsementModel = endorsementModel;
         this.CampaignModel = CampaignModel;
@@ -47,6 +49,13 @@ let EndorsementService = class EndorsementService {
                 user,
             });
             const author = await this.userModel.findById(campaign1.author);
+            const endorserName = user.name;
+            const mailPayload = {
+                author,
+                endorserName,
+                campaign: campaign1
+            };
+            this.client.emit('campaign-endorsed', mailPayload);
             return endorsement;
         }
         catch (error) {
@@ -144,10 +153,12 @@ let EndorsementService = class EndorsementService {
 };
 EndorsementService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __param(1, (0, mongoose_1.InjectModel)(endorsement_schema_1.Endorsement.name)),
-    __param(2, (0, mongoose_1.InjectModel)(campaign_schema_1.Campaign.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model,
+    __param(0, (0, common_1.Inject)('MAIL_SERVICE')),
+    __param(1, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __param(2, (0, mongoose_1.InjectModel)(endorsement_schema_1.Endorsement.name)),
+    __param(3, (0, mongoose_1.InjectModel)(campaign_schema_1.Campaign.name)),
+    __metadata("design:paramtypes", [microservices_1.ClientProxy,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model,
         campaign_gateway_1.CampaignGateway])

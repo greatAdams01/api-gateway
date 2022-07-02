@@ -4,12 +4,14 @@ import { CreateEndorsementDTO, LikeEndorsementDTO, UpdateEndorsementDTO } from '
 import { CampaignGateway } from '../gateway/campaign.gateway';
 import { CampaignDocument } from '../schema/campaign.schema';
 import { Endorsement, EndorsementDocument } from '../schema/endorsement.schema';
+import { ClientProxy } from '@nestjs/microservices';
 export declare class EndorsementService {
+    private client;
     private readonly userModel;
     private readonly endorsementModel;
     private readonly CampaignModel;
     private campaignGateway;
-    constructor(userModel: Model<UserDocument>, endorsementModel: Model<EndorsementDocument>, CampaignModel: Model<CampaignDocument>, campaignGateway: CampaignGateway);
+    constructor(client: ClientProxy, userModel: Model<UserDocument>, endorsementModel: Model<EndorsementDocument>, CampaignModel: Model<CampaignDocument>, campaignGateway: CampaignGateway);
     create(data: CreateEndorsementDTO, user: UserDocument): Promise<Endorsement>;
     findAll(): Promise<Endorsement[]>;
     findByCampaign(campaign: any): Promise<Endorsement[]>;

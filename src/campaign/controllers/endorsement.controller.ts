@@ -8,7 +8,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { RestAuthGuard } from 'src/auth/guards/local.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ReqWithUser } from 'src/typings';
 import {
   CreateEndorsementDTO,
@@ -33,18 +33,18 @@ export class EndorsementController {
   findByCampaign(@Param('id') id: string) {
     return this.endorsementService.findByCampaign(id);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() data: CreateEndorsementDTO, @Req() req: ReqWithUser) {
     console.log(data)
     return this.endorsementService.create(data, req.user);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Put()
   update(@Body() data: UpdateEndorsementDTO) {
     return this.endorsementService.update(data);
   }
-  @UseGuards(RestAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('like')
   like(@Body() data: LikeEndorsementDTO, @Req() req: ReqWithUser) {
     return this.endorsementService.like(data, req.user);

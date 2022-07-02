@@ -39,7 +39,7 @@ let CampaignGateway = class CampaignGateway {
         var _a, _b, _c;
         const notice = await this.noticeModel.create({
             event: campaign_interface_1.CampaignSocketEnum.Created,
-            message: `${(_a = data === null || data === void 0 ? void 0 : data.user) === null || _a === void 0 ? void 0 : _a.firstName} ${(_b = data === null || data === void 0 ? void 0 : data.user) === null || _b === void 0 ? void 0 : _b.lastName} created a campaign <i>${data.campaignTitle}<i> `,
+            message: `${(_a = data === null || data === void 0 ? void 0 : data.user) === null || _a === void 0 ? void 0 : _a.firstName} ${(_b = data === null || data === void 0 ? void 0 : data.user) === null || _b === void 0 ? void 0 : _b.lastName} created a campaign ${data.campaignTitle} `,
             user: (_c = data === null || data === void 0 ? void 0 : data.user) === null || _c === void 0 ? void 0 : _c.id,
             db_model: 'campaign',
         });
@@ -50,7 +50,7 @@ let CampaignGateway = class CampaignGateway {
         var _a, _b, _c;
         const notice = await this.noticeModel.create({
             event: campaign_interface_1.CampaignSocketEnum.Created,
-            message: `${(_a = data === null || data === void 0 ? void 0 : data.user) === null || _a === void 0 ? void 0 : _a.firstName} ${(_b = data === null || data === void 0 ? void 0 : data.user) === null || _b === void 0 ? void 0 : _b.lastName} endorsed a campaign <i>${data.campaignTitle}<i> `,
+            message: `${(_a = data === null || data === void 0 ? void 0 : data.user) === null || _a === void 0 ? void 0 : _a.firstName} ${(_b = data === null || data === void 0 ? void 0 : data.user) === null || _b === void 0 ? void 0 : _b.lastName} endorsed a campaign ${data.campaignTitle}`,
             user: (_c = data === null || data === void 0 ? void 0 : data.user) === null || _c === void 0 ? void 0 : _c.id,
             db_model: 'campaign',
         });

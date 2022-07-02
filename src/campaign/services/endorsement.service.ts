@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/user/entity/user.schema';
@@ -10,11 +10,13 @@ import {
 import { CampaignGateway } from '../gateway/campaign.gateway';
 import { Campaign, CampaignDocument } from '../schema/campaign.schema';
 import { Endorsement, EndorsementDocument } from '../schema/endorsement.schema';
+import { ClientProxy } from '@nestjs/microservices';
 // import { endorsedCampMail } from '../../utils/sendMaijet'
 
 @Injectable()
 export class EndorsementService {
   constructor(
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @InjectModel(Endorsement.name)
     private readonly endorsementModel: Model<EndorsementDocument>,
@@ -60,7 +62,16 @@ export class EndorsementService {
         campaignTitle: campaign1.title,
         user,
       });
+
       const author = await this.userModel.findById(campaign1.author)
+      const endorserName = user.name
+
+      const mailPayload = {
+        author,
+        endorserName,
+        campaign: campaign1
+      }
+      this.client.emit('campaign-endorsed', mailPayload)
       // await endorsedCampMail(campaign1.title, campaign1.endorsements.length, author.email, author.name)
       return endorsement;
     } catch (error) {

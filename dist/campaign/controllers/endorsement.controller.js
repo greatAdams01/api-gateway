@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EndorsementController = void 0;
 const common_1 = require("@nestjs/common");
-const local_guard_1 = require("../../auth/guards/local.guard");
+const jwt_guard_1 = require("../../auth/guards/jwt.guard");
 const endorsement_dto_1 = require("../dto/endorsement.dto");
 const endorsement_service_1 = require("../services/endorsement.service");
 let EndorsementController = class EndorsementController {
@@ -62,7 +62,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EndorsementController.prototype, "findByCampaign", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -71,7 +71,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EndorsementController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Put)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -79,7 +79,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EndorsementController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)(local_guard_1.RestAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)('like'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
