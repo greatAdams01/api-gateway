@@ -59,7 +59,7 @@ import { ClientsModule, Transport } from  "@nestjs/microservices"
   exports: [JwtStrategy, PassportModule, AuthService],
 })
 export class AuthModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LocationMiddleware).forRoutes(AuthController);
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(LocationMiddleware).forRoutes(AuthController);
+  // }
 }

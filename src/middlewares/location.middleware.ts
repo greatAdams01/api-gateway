@@ -18,3 +18,17 @@ export class LocationMiddleware implements NestMiddleware {
     next();
   }
 }
+
+export const locationLogger = async (req, res: Response, next: NextFunction) => {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  ip.toString()
+
+  console.log(ip)
+  const location: IGeo = await ipLocation.fetch(ip).catch((err) => {
+    throw err;
+  });
+  req.location = location
+  console.log(req.location)
+
+  next();
+}

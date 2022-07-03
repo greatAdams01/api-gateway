@@ -12,7 +12,6 @@ const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const passport_1 = require("@nestjs/passport");
 const applicant_shema_1 = require("../applicant/schema/applicant.shema");
-const location_middleware_1 = require("../middlewares/location.middleware");
 const user_schema_1 = require("../user/entity/user.schema");
 const user_service_1 = require("../user/user.service");
 const config_1 = require("../utils/config");
@@ -22,9 +21,6 @@ const auth_service_1 = require("./auth.service");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const microservices_1 = require("@nestjs/microservices");
 let AuthModule = class AuthModule {
-    configure(consumer) {
-        consumer.apply(location_middleware_1.LocationMiddleware).forRoutes(auth_controller_1.AuthController);
-    }
 };
 AuthModule = __decorate([
     (0, common_1.Module)({

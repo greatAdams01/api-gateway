@@ -96,10 +96,10 @@ export class CampaignService {
       throw error;
     }
   }
-  async findAll(limit?: number): Promise<Campaign[]> {
+  async findAll(region?: string, limit?: number, ): Promise<Campaign[]> {
     try {
       const campaigns = await this.campaignModel
-        .find()
+        .find({ region: region })
         .sort({ createdAt: -1 })
         .limit(limit)
         .populate('author', 'id firstName lastName image')
@@ -112,10 +112,10 @@ export class CampaignService {
     }
   }
 
-  async findAllActive(limit?: number): Promise<Campaign[]> {
+  async findAllActive(region: string, limit?: number): Promise<Campaign[]> {
     try {
       const campaigns = await this.campaignModel
-        .find({ status: CampaignStatusEnum.Active })
+        .find({ status: CampaignStatusEnum.Active }, { region: region })
         .sort({ createdAt: -1 })
         .populate('author', 'id firstName lastName')
         .populate('endorsements', 'id');

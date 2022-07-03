@@ -4,6 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import * as express from 'express';
 // import { join } from 'path';
 import { AppModule } from './app.module';
+import { locationLogger } from './middlewares/location.middleware';
+// import { LocationMiddleware } from './middlewares/location.middleware';
 import config from './utils/config';
 // import { RedisIoAdapter } from './utils/redis.io';
 
@@ -37,6 +39,8 @@ async function bootstrap() {
       credentials: true,
     }
   );
+
+  app.use(locationLogger)
 
   // app.useWebSocketAdapter(new RedisIoAdapter(app));
   const PORT = process.env.PORT || 8000;

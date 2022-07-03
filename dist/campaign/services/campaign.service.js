@@ -75,10 +75,10 @@ let CampaignService = class CampaignService {
             throw error;
         }
     }
-    async findAll(limit) {
+    async findAll(region, limit) {
         try {
             const campaigns = await this.campaignModel
-                .find()
+                .find({ region: region })
                 .sort({ createdAt: -1 })
                 .limit(limit)
                 .populate('author', 'id firstName lastName image')
@@ -90,10 +90,10 @@ let CampaignService = class CampaignService {
             throw error;
         }
     }
-    async findAllActive(limit) {
+    async findAllActive(region, limit) {
         try {
             const campaigns = await this.campaignModel
-                .find({ status: campaign_interface_1.CampaignStatusEnum.Active })
+                .find({ status: campaign_interface_1.CampaignStatusEnum.Active }, { region: region })
                 .sort({ createdAt: -1 })
                 .populate('author', 'id firstName lastName')
                 .populate('endorsements', 'id');

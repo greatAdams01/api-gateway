@@ -39,6 +39,13 @@ export const CurrentUser = createParamDecorator(
   },
 );
 
+export const locationGLQ = createParamDecorator(
+  (data: unknown, context: ExecutionContext) => {
+    const ctx = GqlExecutionContext.create(context);
+    return ctx.getContext().req.location;
+  },
+);
+
 export const ResGql = createParamDecorator(
   (data, [root, args, ctx, info]): Response => ctx.res,
 );

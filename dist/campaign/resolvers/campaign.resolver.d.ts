@@ -6,8 +6,8 @@ export declare class CampaignResolver {
     private readonly endorsementService;
     constructor(campaignService: CampaignService, endorsementService: EndorsementService);
     myCampaign(user: UserDocument): Promise<import("../schema/campaign.schema").Campaign[]>;
-    getCampaigns(limit: number): Promise<import("../schema/campaign.schema").Campaign[]>;
+    getCampaigns(limit: number, location: any): Promise<import("../schema/campaign.schema").Campaign[]>;
     getCampaign(slug: string): Promise<import("../schema/campaign.schema").CampaignDocument>;
-    getActiveCampaigns(): Promise<import("../schema/campaign.schema").Campaign[]>;
+    getActiveCampaigns(limit: number, location: any): Promise<import("../schema/campaign.schema").Campaign[]>;
     deleteCampaign(id: string): Promise<import("../schema/campaign.schema").CampaignDocument>;
 }

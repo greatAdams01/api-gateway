@@ -8,6 +8,7 @@ export declare class GQLGuard implements CanActivate {
     canActivate(context: ExecutionContext): Promise<any>;
 }
 export declare const CurrentUser: (...dataOrPipes: unknown[]) => ParameterDecorator;
+export declare const locationGLQ: (...dataOrPipes: unknown[]) => ParameterDecorator;
 export declare const ResGql: (...dataOrPipes: any[]) => ParameterDecorator;
 export declare const GqlUser: (...dataOrPipes: any[]) => ParameterDecorator;
 export {};

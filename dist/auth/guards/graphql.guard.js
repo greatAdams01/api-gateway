@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GqlUser = exports.ResGql = exports.CurrentUser = exports.GQLGuard = exports.GQLoginGuard = void 0;
+exports.GqlUser = exports.ResGql = exports.locationGLQ = exports.CurrentUser = exports.GQLGuard = exports.GQLoginGuard = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
@@ -36,6 +36,10 @@ exports.GQLGuard = GQLGuard;
 exports.CurrentUser = (0, common_2.createParamDecorator)((data, context) => {
     const ctx = graphql_1.GqlExecutionContext.create(context);
     return ctx.getContext().req.user;
+});
+exports.locationGLQ = (0, common_2.createParamDecorator)((data, context) => {
+    const ctx = graphql_1.GqlExecutionContext.create(context);
+    return ctx.getContext().req.location;
 });
 exports.ResGql = (0, common_2.createParamDecorator)((data, [root, args, ctx, info]) => ctx.res);
 exports.GqlUser = (0, common_2.createParamDecorator)((data, [root, args, ctx, info]) => ctx.req && ctx.req.user);
