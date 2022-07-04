@@ -1,1 +1,1 @@
-{"version":3,"file":"transaction.interface.js","sourceRoot":"","sources":["../../src/transaction/transaction.interface.ts"],"names":[],"mappings":";;;AAAA,IAAY,kBAGX;AAHD,WAAY,kBAAkB;IAC5B,mDAA6B,CAAA;IAC7B,2EAAqD,CAAA;AACvD,CAAC,EAHW,kBAAkB,GAAlB,0BAAkB,KAAlB,0BAAkB,QAG7B"}
+{"version":3,"file":"transaction.interface.js","sourceRoot":"","sources":["../../src/transaction/transaction.interface.ts"],"names":[],"mappings":";;;AAAA,IAAY,kBAIX;AAJD,WAAY,kBAAkB;IAC5B,mEAA6C,CAAA;IAC7C,sDAAiC,CAAA;IACjC,2EAAqD,CAAA;AACvD,CAAC,EAJW,kBAAkB,GAAlB,0BAAkB,KAAlB,0BAAkB,QAI7B"}

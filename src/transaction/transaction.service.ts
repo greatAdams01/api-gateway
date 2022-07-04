@@ -66,7 +66,7 @@ export class TransactionService {
         purpose: res.data.metadata?.purpose,
         key: res.data.metadata?.key,
       });
-      if (transaction.purpose === PaymentPurposeEnum.CAMPAIGN) {
+      if (transaction.purpose === PaymentPurposeEnum.VIEWS || transaction.purpose === PaymentPurposeEnum.ENDORSEMENT) {
         await this.campaignModel
           .findByIdAndUpdate(
             transaction.key,

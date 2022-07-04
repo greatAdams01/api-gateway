@@ -30,7 +30,8 @@ let TransactionService = class TransactionService {
         var _a, _b;
         try {
             const transaction = await this.transactionModel.create(Object.assign(Object.assign({}, e.data), { transactionId: e.data.id, purpose: (_a = e.data.metadata) === null || _a === void 0 ? void 0 : _a.purpose, key: (_b = e.data.metadata) === null || _b === void 0 ? void 0 : _b.key }));
-            if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.CAMPAIGN) {
+            console.log(e);
+            if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.VIEWS || transaction.purpose === transaction_interface_1.PaymentPurposeEnum.ENDORSEMENT) {
                 await this.campaignModel
                     .findByIdAndUpdate(transaction.key, {
                     $set: { promoted: true },
@@ -55,7 +56,7 @@ let TransactionService = class TransactionService {
             });
             const res = data;
             const transaction = await this.transactionModel.create(Object.assign(Object.assign({}, res.data), { transactionId: res.data.id, purpose: (_a = res.data.metadata) === null || _a === void 0 ? void 0 : _a.purpose, key: (_b = res.data.metadata) === null || _b === void 0 ? void 0 : _b.key }));
-            if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.CAMPAIGN) {
+            if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.VIEWS || transaction.purpose === transaction_interface_1.PaymentPurposeEnum.ENDORSEMENT) {
                 await this.campaignModel
                     .findByIdAndUpdate(transaction.key, {
                     $set: { promoted: true },
