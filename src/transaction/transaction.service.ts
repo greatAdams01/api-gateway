@@ -30,7 +30,8 @@ export class TransactionService {
         purpose: e.data.metadata?.purpose,
         key: e.data.metadata?.key,
       });
-      if (transaction.purpose === PaymentPurposeEnum.CAMPAIGN) {
+      console.log(e)
+      if (transaction.purpose === PaymentPurposeEnum.VIEWS || transaction.purpose === PaymentPurposeEnum.ENDORSEMENT) {
         await this.campaignModel
           .findByIdAndUpdate(
             transaction.key,
