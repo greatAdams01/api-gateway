@@ -90,10 +90,39 @@ let CampaignService = class CampaignService {
             throw error;
         }
     }
+    async findAllOtherRegions(limit) {
+        try {
+            const campaigns = await this.campaignModel
+                .find()
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .populate('author', 'id firstName lastName image')
+                .populate('endorsements', 'id')
+                .populate('views');
+            return campaigns;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     async findAllActive(region, limit) {
         try {
             const campaigns = await this.campaignModel
-                .find({ status: campaign_interface_1.CampaignStatusEnum.Active }, { region: region })
+                .find({ status: campaign_interface_1.CampaignStatusEnum.Active })
+                .sort({ createdAt: -1 })
+                .populate('author', 'id firstName lastName')
+                .populate('endorsements', 'id');
+            const regionCampains = campaigns.filter(camp => camp.region === region);
+            return regionCampains;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async findAllActiveOtherRegions(region, limit) {
+        try {
+            const campaigns = await this.campaignModel
+                .find({ status: campaign_interface_1.CampaignStatusEnum.Active })
                 .sort({ createdAt: -1 })
                 .populate('author', 'id firstName lastName')
                 .populate('endorsements', 'id');

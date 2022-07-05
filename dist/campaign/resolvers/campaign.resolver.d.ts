@@ -7,7 +7,9 @@ export declare class CampaignResolver {
     constructor(campaignService: CampaignService, endorsementService: EndorsementService);
     myCampaign(user: UserDocument): Promise<import("../schema/campaign.schema").Campaign[]>;
     getCampaigns(limit: number, location: any): Promise<import("../schema/campaign.schema").Campaign[]>;
+    getCampaignsOtherRegion(): Promise<import("../schema/campaign.schema").Campaign[]>;
     getCampaign(slug: string): Promise<import("../schema/campaign.schema").CampaignDocument>;
     getActiveCampaigns(limit: number, location: any): Promise<import("../schema/campaign.schema").Campaign[]>;
+    getActiveCampaignsOtherRegion(limit: number, location: any): Promise<(region: string, limit?: number) => Promise<import("../schema/campaign.schema").Campaign[]>>;
     deleteCampaign(id: string): Promise<import("../schema/campaign.schema").CampaignDocument>;
 }

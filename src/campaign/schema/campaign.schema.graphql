@@ -38,10 +38,12 @@ type CampaignNotice {
 type Query {
   # Reports
   getCampaigns(limit: Int): [Campaign]
+  getCampaignsOtherRegion(limit: Int): [Campaign]
   getCampaign(slug: String): Campaign
   myCampaign: [Campaign]
   getCampaignNotice: [CampaignNotice]
   getActiveCampaigns: [Campaign]
+  getActiveCampaignsOtherRegion: [Campaign]
 }
 
 type Mutation {

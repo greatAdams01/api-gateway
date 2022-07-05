@@ -30,12 +30,19 @@ let CampaignResolver = class CampaignResolver {
         const region = location.country_name;
         return await this.campaignService.findAll(region);
     }
+    async getCampaignsOtherRegion() {
+        return await this.campaignService.findAllOtherRegions();
+    }
     async getCampaign(slug) {
         return await this.campaignService.findOne(slug);
     }
     async getActiveCampaigns(limit, location) {
         const region = location.country_name;
         return await this.campaignService.findAllActive(region);
+    }
+    async getActiveCampaignsOtherRegion(limit, location) {
+        const region = location.country_name;
+        return await this.campaignService.findAllActiveOtherRegions;
     }
     async deleteCampaign(id) {
         return await this.campaignService.delete(id);
@@ -59,6 +66,12 @@ __decorate([
 ], CampaignResolver.prototype, "getCampaigns", null);
 __decorate([
     (0, graphql_1.Query)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CampaignResolver.prototype, "getCampaignsOtherRegion", null);
+__decorate([
+    (0, graphql_1.Query)(),
     __param(0, (0, graphql_1.Args)('slug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -72,6 +85,14 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], CampaignResolver.prototype, "getActiveCampaigns", null);
+__decorate([
+    (0, graphql_1.Query)(),
+    __param(0, (0, graphql_1.Args)('limit')),
+    __param(1, (0, graphql_guard_1.locationGLQ)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], CampaignResolver.prototype, "getActiveCampaignsOtherRegion", null);
 __decorate([
     (0, graphql_1.Mutation)(),
     __param(0, (0, graphql_1.Args)('id')),

@@ -112,10 +112,41 @@ export class CampaignService {
     }
   }
 
+  async findAllOtherRegions(limit?: number, ): Promise<Campaign[]> {
+    try {
+      const campaigns = await this.campaignModel
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .populate('author', 'id firstName lastName image')
+        .populate('endorsements', 'id')
+        .populate('views');
+
+      return campaigns as unknown as Promise<CampaignDocument[]>;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async findAllActive(region: string, limit?: number): Promise<Campaign[]> {
     try {
       const campaigns = await this.campaignModel
-        .find({ status: CampaignStatusEnum.Active }, { region: region })
+        .find({ status: CampaignStatusEnum.Active })
+        .sort({ createdAt: -1 })
+        .populate('author', 'id firstName lastName')
+        .populate('endorsements', 'id');
+      
+      const regionCampains = campaigns.filter(camp => camp.region === region)
+      return regionCampains as unknown as Promise<CampaignDocument[]>;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findAllActiveOtherRegions(region: string, limit?: number): Promise<Campaign[]> {
+    try {
+      const campaigns = await this.campaignModel
+        .find({ status: CampaignStatusEnum.Active })
         .sort({ createdAt: -1 })
         .populate('author', 'id firstName lastName')
         .populate('endorsements', 'id');

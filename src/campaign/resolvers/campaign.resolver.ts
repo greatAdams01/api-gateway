@@ -29,6 +29,11 @@ export class CampaignResolver {
   }
 
   @Query()
+  async getCampaignsOtherRegion() {
+    return await this.campaignService.findAllOtherRegions()
+  }
+
+  @Query()
   async getCampaign(@Args('slug') slug: string) {
     return await this.campaignService.findOne(slug);
   }
@@ -37,6 +42,13 @@ export class CampaignResolver {
     const region = location.country_name
     return await this.campaignService.findAllActive(region);
   }
+
+  @Query()
+  async getActiveCampaignsOtherRegion(@Args('limit') limit: number, @locationGLQ() location) {
+    const region = location.country_name
+    return await this.campaignService.findAllActiveOtherRegions;
+  }
+
   @Mutation()
   async deleteCampaign(@Args('id') id: string) {
     return await this.campaignService.delete(id);

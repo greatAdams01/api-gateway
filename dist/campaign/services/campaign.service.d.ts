@@ -24,7 +24,9 @@ export declare class CampaignService {
     constructor(client: ClientProxy, userModel: Model<UserDocument>, viewModel: Model<ViewDocument>, campaignModel: Model<CampaignDocument>, endorsementModel: Model<Endorsement>, noticeModel: Model<NoticeDocument>, campaignGateway: CampaignGateway, connection: Connection);
     create(data: CreateCampaignDTO, user: UserDocument): Promise<Campaign>;
     findAll(region?: string, limit?: number): Promise<Campaign[]>;
+    findAllOtherRegions(limit?: number): Promise<Campaign[]>;
     findAllActive(region: string, limit?: number): Promise<Campaign[]>;
+    findAllActiveOtherRegions(region: string, limit?: number): Promise<Campaign[]>;
     findOne(slug: string): Promise<CampaignDocument>;
     update(data: Partial<UpdateCampaignDTO>): Promise<Campaign>;
     delete(id: string): Promise<CampaignDocument>;

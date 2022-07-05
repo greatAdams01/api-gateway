@@ -158,10 +158,12 @@ export interface IQuery {
     getReportNoifcations(): Nullable<Nullable<ReportPayload>[]> | Promise<Nullable<Nullable<ReportPayload>[]>>;
     getApplicantsReport(applicant_id?: Nullable<string>): Nullable<Nullable<Report>[]> | Promise<Nullable<Nullable<Report>[]>>;
     getCampaigns(limit?: Nullable<number>): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
+    getCampaignsOtherRegion(limit?: Nullable<number>): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
     getCampaign(slug?: Nullable<string>): Nullable<Campaign> | Promise<Nullable<Campaign>>;
     myCampaign(): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
     getCampaignNotice(): Nullable<Nullable<CampaignNotice>[]> | Promise<Nullable<Nullable<CampaignNotice>[]>>;
     getActiveCampaigns(): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
+    getActiveCampaignsOtherRegion(): Nullable<Nullable<Campaign>[]> | Promise<Nullable<Nullable<Campaign>[]>>;
     getEndorsementsByCampaign(campaign_id?: Nullable<string>): Nullable<Nullable<Endorsement>[]> | Promise<Nullable<Nullable<Endorsement>[]>>;
     getEndorsements(): Nullable<Nullable<Endorsement>[]> | Promise<Nullable<Nullable<Endorsement>[]>>;
     getEnvs(): Nullable<Nullable<Env>[]> | Promise<Nullable<Nullable<Env>[]>>;
