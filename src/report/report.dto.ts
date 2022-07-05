@@ -14,3 +14,9 @@ export class reportDTO {
   reportType: ReportEnum;
   reportMessage: string;
 }
+
+export interface IreportDTO {
+  campaignSlug: string;
+  reportType: ReportEnum;
+  reportMessage: string;
+}
