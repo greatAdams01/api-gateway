@@ -44,6 +44,10 @@ export class TransactionService {
             throw e;
           });
       }
+      const _id = e.data.metadata.key
+      const campaign = await this.campaignModel.findById(_id)
+      
+
       return true;
     } catch (error) {
       throw error;

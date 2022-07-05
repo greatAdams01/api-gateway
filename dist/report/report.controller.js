@@ -15,19 +15,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
+const report_dto_1 = require("./report.dto");
 let ReportController = class ReportController {
     constructor(client) {
         this.client = client;
     }
-    report() {
+    report(data) {
+        console.log(data);
         this.client.emit('report-camp', 'string');
         return 'Sucess';
     }
 };
 __decorate([
     (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [report_dto_1.reportDTO]),
     __metadata("design:returntype", void 0)
 ], ReportController.prototype, "report", null);
 ReportController = __decorate([
