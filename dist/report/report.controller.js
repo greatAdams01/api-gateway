@@ -15,15 +15,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
+const rxjs_1 = require("rxjs");
 const report_dto_1 = require("./report.dto");
 let ReportController = class ReportController {
     constructor(client) {
         this.client = client;
     }
     report(data) {
-        console.log(data);
-        this.client.emit('report-camp', 'string');
+        this.client.emit('report-camp', data);
         return 'Sucess';
+    }
+    resolvedReport(param) {
+        const slug = param.reportId;
+        this.client.emit('resove-camp-report', slug);
+        return 'Sucess';
+    }
+    getCampainReports(param) {
+        const slug = param.campaignSlug;
+        const pattern = { cmd: 'camp-reports' };
+        const payload = slug;
+        return this.client.send(pattern, payload);
     }
 };
 __decorate([
@@ -33,6 +44,20 @@ __decorate([
     __metadata("design:paramtypes", [report_dto_1.reportDTO]),
     __metadata("design:returntype", void 0)
 ], ReportController.prototype, "report", null);
+__decorate([
+    (0, common_1.Put)('/:reportId'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ReportController.prototype, "resolvedReport", null);
+__decorate([
+    (0, common_1.Get)('/:campaignSlug'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", rxjs_1.Observable)
+], ReportController.prototype, "getCampainReports", null);
 ReportController = __decorate([
     (0, common_1.Controller)('api/report'),
     __param(0, (0, common_1.Inject)('REPORT_SERVICE')),
