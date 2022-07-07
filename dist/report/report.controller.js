@@ -14,29 +14,46 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportController = void 0;
 const common_1 = require("@nestjs/common");
-const microservices_1 = require("@nestjs/microservices");
-const rxjs_1 = require("rxjs");
+const axios_1 = require("axios");
 const report_dto_1 = require("./report.dto");
+const config_1 = require("@nestjs/config");
+const report_service_1 = require("./report.service");
 let ReportController = class ReportController {
-    constructor(client) {
-        this.client = client;
+    constructor(reportService, configService) {
+        this.reportService = reportService;
+        this.configService = configService;
+        this.reportURL = this.configService.get('reportServerURL');
+    }
+    async getAllReports() {
+        const { data } = await axios_1.default.get(`${this.reportURL}/report`);
+        return data;
     }
     report(data) {
-        this.client.emit('report-camp', data);
+        this.reportService.sendReport(data);
         return 'Sucess';
     }
     resolvedReport(param) {
         const slug = param.reportId;
-        this.client.emit('resove-camp-report', slug);
+        this.reportService.resolveReport(slug);
         return 'Sucess';
     }
-    getCampainReports(param) {
+    async getCampainReports(param) {
         const slug = param.campaignSlug;
-        const pattern = { cmd: 'camp-reports' };
-        const payload = slug;
-        return this.client.send(pattern, payload);
+        try {
+            const { data } = await axios_1.default.get(`${this.reportURL}/report/${slug}`);
+            return data;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 };
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReportController.prototype, "getAllReports", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -52,16 +69,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReportController.prototype, "resolvedReport", null);
 __decorate([
-    (0, common_1.Get)('/:campaignSlug'),
+    (0, common_1.Post)('/:campaignSlug'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", rxjs_1.Observable)
+    __metadata("design:returntype", Promise)
 ], ReportController.prototype, "getCampainReports", null);
 ReportController = __decorate([
     (0, common_1.Controller)('api/report'),
-    __param(0, (0, common_1.Inject)('REPORT_SERVICE')),
-    __metadata("design:paramtypes", [microservices_1.ClientProxy])
+    __metadata("design:paramtypes", [report_service_1.ReportService,
+        config_1.ConfigService])
 ], ReportController);
 exports.ReportController = ReportController;
 //# sourceMappingURL=report.controller.js.map

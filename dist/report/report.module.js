@@ -11,11 +11,18 @@ const common_1 = require("@nestjs/common");
 const report_controller_1 = require("./report.controller");
 const microservices_1 = require("@nestjs/microservices");
 const config_1 = require("../utils/config");
+const report_service_1 = require("./report.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const reportRMQ_schema_1 = require("./schema/reportRMQ.schema");
 let ReportModule = class ReportModule {
 };
 ReportModule = __decorate([
     (0, common_1.Module)({
+        providers: [report_service_1.ReportService],
         imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: reportRMQ_schema_1.ReportRMQ.name, schema: reportRMQ_schema_1.ReportSchemaRMQ },
+            ]),
             microservices_1.ClientsModule.register([
                 {
                     name: 'REPORT_SERVICE',

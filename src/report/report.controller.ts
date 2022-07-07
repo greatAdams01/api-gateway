@@ -2,33 +2,58 @@ import { Body, Controller, Get, Inject, Param, Post, Put, Req } from '@nestjs/co
 import { ClientProxy, EventPattern } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { ReportDocument } from 'src/applicant/schema/report.schema';
+import axios from 'axios';
 import { reportDTO } from './report.dto';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ReportService } from './report.service';
+
+
 
 @Controller('api/report')
 export class ReportController {
-  constructor(@Inject('REPORT_SERVICE') private client: ClientProxy){}
+  private readonly reportURL: string
+  constructor(
+    private readonly reportService: ReportService,
+    private readonly configService: ConfigService
+    ){
+
+      this.reportURL = this.configService.get<string>('reportServerURL')
+    }
+
+  @Get()
+  async getAllReports() {
+    const { data } = await axios.get(`${this.reportURL}/report`)
+    return data
+  }
 
   @Post()
   report(@Body() data: reportDTO ) {
     // console.log(data)
-    this.client.emit('report-camp', data)
+    this.reportService.sendReport(data)
     return 'Sucess'
   }
 
   @Put('/:reportId')
   resolvedReport(@Param() param ) {
     const slug = param.reportId
-    this.client.emit('resove-camp-report', slug)
+    this.reportService.resolveReport(slug)
     return 'Sucess'
   }
 
-  @Get('/:campaignSlug')
-  getCampainReports(@Param() param): Observable<ReportDocument[]> {
+  @Post('/:campaignSlug')
+  async getCampainReports(@Param() param) {
     const slug = param.campaignSlug
-    const pattern = { cmd: 'camp-reports' };
-    const payload = slug;
+    // const pattern = { cmd: 'camp-reports' };
+    // const payload = slug;
     // console.log(payload)
-    return this.client.send<ReportDocument[]>(pattern, payload);
+   try {
+    const { data } = await axios.get(`${this.reportURL}/report/${slug}`)
+    return data
+    } catch (error) {
+    console.log(error)
+   }
+   
   }
+
 
 }

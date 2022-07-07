@@ -40,7 +40,7 @@ async function bootstrap() {
     }
   );
 
-  app.use(locationLogger)
+  // app.use(locationLogger)
 
   // app.useWebSocketAdapter(new RedisIoAdapter(app));
   const PORT = process.env.PORT || 8000;

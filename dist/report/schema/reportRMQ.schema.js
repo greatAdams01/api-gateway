@@ -38,4 +38,4 @@ ReportRMQ = __decorate([
 ], ReportRMQ);
 exports.ReportRMQ = ReportRMQ;
 exports.ReportSchemaRMQ = mongoose_1.SchemaFactory.createForClass(ReportRMQ);
-//# sourceMappingURL=report.schema.js.map
+//# sourceMappingURL=reportRMQ.schema.js.map

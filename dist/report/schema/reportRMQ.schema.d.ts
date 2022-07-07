@@ -21,7 +21,7 @@
 /// <reference types="mongoose/types/validation" />
 import { Document } from 'mongoose';
 import { ReportEnum } from './report.dto';
-export declare type ReportDocument = ReportRMQ & Document;
+export declare type ReportDocumentRMQ = ReportRMQ & Document;
 export declare class ReportRMQ extends Document {
     campaignSlug: string;
     reportType: ReportEnum;

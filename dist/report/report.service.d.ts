@@ -1,4 +1,7 @@
-import { RmqContext } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 export declare class ReportService {
-    getNotifications(data: number[], context: RmqContext): void;
+    private client;
+    constructor(client: ClientProxy);
+    sendReport(data: any): void;
+    resolveReport(slug: any): void;
 }

@@ -3,13 +3,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { ReportEnum } from './report.dto';
 
-export type ReportDocument = Report & Document;
+export type ReportDocumentRMQ = ReportRMQ & Document;
 
 
 @Schema({
   timestamps: true
 })
-export class Report extends Document {
+export class ReportRMQ extends Document {
   @Prop({ required: true })
   campaignSlug: string;
   @Prop({ 
@@ -22,4 +22,4 @@ export class Report extends Document {
   reportMessage: string;
 }
 
-export const ReportSchema = SchemaFactory.createForClass(Report);
+export const ReportSchemaRMQ = SchemaFactory.createForClass(ReportRMQ);
