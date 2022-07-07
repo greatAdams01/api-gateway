@@ -46,7 +46,14 @@ export class TransactionService {
       }
       const _id = e.data.metadata.key
       const campaign = await this.campaignModel.findById(_id)
-      
+      if(transaction.purpose === PaymentPurposeEnum.VIEWS) {
+        campaign.numberOfPaidViewsCount += e.data.metadata?.numberOfViews
+        await campaign.save()
+        return true
+      }
+
+      campaign.numberOfPaidEndorsementCount += e.data.metadata?.numberOfEndorsements
+      await campaign.save()
 
       return true;
     } catch (error) {

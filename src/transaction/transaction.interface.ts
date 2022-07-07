@@ -20,6 +20,8 @@ export interface TransactionPaymentResponse {
     channel: string;
     metadata: {
       purpose: PaymentPurposeEnum;
+      numberOfViews?: number;
+      numberOfEndorsements?: number
       key: string;
       custom_fields: CustomField[];
       referrer: string;

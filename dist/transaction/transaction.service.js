@@ -27,7 +27,7 @@ let TransactionService = class TransactionService {
         this.campaignModel = campaignModel;
     }
     async webhook(e) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         try {
             const transaction = await this.transactionModel.create(Object.assign(Object.assign({}, e.data), { transactionId: e.data.id, purpose: (_a = e.data.metadata) === null || _a === void 0 ? void 0 : _a.purpose, key: (_b = e.data.metadata) === null || _b === void 0 ? void 0 : _b.key }));
             console.log(e);
@@ -42,6 +42,13 @@ let TransactionService = class TransactionService {
             }
             const _id = e.data.metadata.key;
             const campaign = await this.campaignModel.findById(_id);
+            if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.VIEWS) {
+                campaign.numberOfPaidViewsCount += (_c = e.data.metadata) === null || _c === void 0 ? void 0 : _c.numberOfViews;
+                await campaign.save();
+                return true;
+            }
+            campaign.numberOfPaidEndorsementCount += (_d = e.data.metadata) === null || _d === void 0 ? void 0 : _d.numberOfEndorsements;
+            await campaign.save();
             return true;
         }
         catch (error) {
