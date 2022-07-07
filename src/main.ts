@@ -42,7 +42,7 @@ async function bootstrap() {
 
   app.use(locationLogger)
 
-  // app.useWebSocketAdapter(new RedisIoAdapter(app));
+  // app.useWebSocketAdapter(new RedisIoAdapter(app)); 
   const PORT = process.env.PORT || 8000;
   app.use(express.json({ limit: '50mb' }));
   app.useGlobalPipes(new ValidationPipe());
