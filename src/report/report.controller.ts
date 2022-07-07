@@ -22,8 +22,13 @@ export class ReportController {
 
   @Get()
   async getAllReports() {
-    const { data } = await axios.get(`${this.reportURL}/report`)
-    return data
+    try {
+      console.log(this.reportURL)
+      const { data } = await axios.get(`${this.reportURL}/report`)
+      return data
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   @Post()
@@ -35,9 +40,13 @@ export class ReportController {
 
   @Put('/:reportId')
   resolvedReport(@Param() param ) {
-    const slug = param.reportId
-    this.reportService.resolveReport(slug)
-    return 'Sucess'
+    try {
+      const slug = param.reportId
+      this.reportService.resolveReport(slug)
+      return 'Sucess'
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   @Post('/:campaignSlug')

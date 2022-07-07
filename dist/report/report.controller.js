@@ -25,17 +25,28 @@ let ReportController = class ReportController {
         this.reportURL = this.configService.get('reportServerURL');
     }
     async getAllReports() {
-        const { data } = await axios_1.default.get(`${this.reportURL}/report`);
-        return data;
+        try {
+            console.log(this.reportURL);
+            const { data } = await axios_1.default.get(`${this.reportURL}/report`);
+            return data;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     report(data) {
         this.reportService.sendReport(data);
         return 'Sucess';
     }
     resolvedReport(param) {
-        const slug = param.reportId;
-        this.reportService.resolveReport(slug);
-        return 'Sucess';
+        try {
+            const slug = param.reportId;
+            this.reportService.resolveReport(slug);
+            return 'Sucess';
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     async getCampainReports(param) {
         const slug = param.campaignSlug;
