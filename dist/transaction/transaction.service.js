@@ -41,13 +41,18 @@ let TransactionService = class TransactionService {
                 });
             }
             const _id = e.data.metadata.key;
+            let value;
             const campaign = await this.campaignModel.findById(_id);
             if (transaction.purpose === transaction_interface_1.PaymentPurposeEnum.VIEWS) {
-                campaign.numberOfPaidViewsCount += (_c = e.data.metadata) === null || _c === void 0 ? void 0 : _c.numberOfViews;
+                value = (_c = e.data.metadata) === null || _c === void 0 ? void 0 : _c.numberOfViews;
+                const numViews = parseInt(value);
+                campaign.numberOfPaidViewsCount += numViews;
                 await campaign.save();
                 return true;
             }
-            campaign.numberOfPaidEndorsementCount += (_d = e.data.metadata) === null || _d === void 0 ? void 0 : _d.numberOfEndorsements;
+            value = (_d = e.data.metadata) === null || _d === void 0 ? void 0 : _d.numberOfEndorsements;
+            const numEd = parseInt(value);
+            campaign.numberOfPaidEndorsementCount += numEd;
             await campaign.save();
             return true;
         }

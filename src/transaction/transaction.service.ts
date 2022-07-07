@@ -45,14 +45,19 @@ export class TransactionService {
           });
       }
       const _id = e.data.metadata.key
+      let value
       const campaign = await this.campaignModel.findById(_id)
       if(transaction.purpose === PaymentPurposeEnum.VIEWS) {
-        campaign.numberOfPaidViewsCount += e.data.metadata?.numberOfViews
+        value = e.data.metadata?.numberOfViews
+        const numViews = parseInt(value)
+        campaign.numberOfPaidViewsCount += numViews
         await campaign.save()
         return true
       }
 
-      campaign.numberOfPaidEndorsementCount += e.data.metadata?.numberOfEndorsements
+      value = e.data.metadata?.numberOfEndorsements
+      const numEd = parseInt(value)
+      campaign.numberOfPaidEndorsementCount += numEd
       await campaign.save()
 
       return true;
