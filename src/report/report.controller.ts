@@ -27,7 +27,7 @@ export class ReportController {
       const { data } = await axios.get(`${this.reportURL}/report`)
       return data
     } catch (error) {
-      console.log(error)
+      console.log(error) 
     }
   }
 
