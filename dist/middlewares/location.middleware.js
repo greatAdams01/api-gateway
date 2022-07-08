@@ -6,9 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.locationLogger = exports.LocationMiddleware = void 0;
+exports.locationLoggerGeo = exports.locationLogger = exports.LocationMiddleware = void 0;
 const common_1 = require("@nestjs/common");
 const ipLocation = require("ip-to-location");
+const geoIp = require("geoip-lite");
 let LocationMiddleware = class LocationMiddleware {
     async use(req, res, next) {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -29,8 +30,9 @@ exports.LocationMiddleware = LocationMiddleware;
 const locationLogger = async (req, res, next) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     ip.toString();
-    console.log(ip);
-    const location = await ipLocation.fetch(ip).catch((err) => {
+    const userIp = ip.split(',')[0];
+    console.log(userIp);
+    const location = await ipLocation.fetch(userIp).catch((err) => {
         throw err;
     });
     req.location = location;
@@ -38,4 +40,14 @@ const locationLogger = async (req, res, next) => {
     next();
 };
 exports.locationLogger = locationLogger;
+const locationLoggerGeo = async (req, res, next) => {
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    ip.toString();
+    console.log(ip);
+    const location = await geoIp.lookup(ip);
+    req.location = location;
+    console.log(req.location);
+    next();
+};
+exports.locationLoggerGeo = locationLoggerGeo;
 //# sourceMappingURL=location.middleware.js.map
