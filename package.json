@@ -48,6 +48,7 @@
     "dotenv": "^16.0.1",
     "express-session": "^1.17.3",
     "express-socket.io-session": "^1.3.5",
+    "geoip-lite": "^1.4.5",
     "graphql": "^16.5.0",
     "ip-to-location": "^1.0.1",
     "mongoose": "^6.3.6",
